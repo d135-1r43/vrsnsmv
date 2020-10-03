@@ -8,4 +8,5 @@ gulp.task('dev', function() {
             baseDir: "./"
         }
     });
+    gulp.watch("index.html").on('change', browserSync.reload);
 });
