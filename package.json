@@ -1,24 +1,12 @@
 {
-  "name": "herhoffer.net",
+  "name": "vrsnsmv.com",
   "version": "1.0.0",
-  "description": "Statische Webseite als CV von Markus Herhoffer",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "description": "Statische Webseite für VRS:NSMV",
   "author": "Markus Herhoffer",
-  "license": "MIT",
-  "dependencies": {
-    "bulma": "^0.7.4"
-  },
+  "license": "proprietary",
+  "dependencies": {},
   "devDependencies": {
-    "browser-sync": "^2.26.3",
-    "gulp": "^4.0.0",
-    "gulp-clean-css": "^4.0.0",
-    "gulp-header": "^2.0.7",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^4.0.2",
-    "gulp-util": "^3.0.8",
-    "gulp-scp2": "^0.2.0"
+    "browser-sync": "^2.26.12",
+    "gulp": "^4.0.2"
   }
 }
