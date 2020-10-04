@@ -121,6 +121,57 @@
         $(this).css('background-image', 'url("' + path + '")').css('background-position', 'initial');
     });
 
+     // Track list player 
+
+    var playlist = $('.album');
+    var a = audiojs.create(playlist, {
+        trackEnded: function() {
+            var next = $('.playlist li.playing').next();
+            if (!next.length) next = $('.playlist li').first();
+            next.addClass('playing').siblings().removeClass('playing');
+            audio1.load($('.as-link', next).attr('data-src'));
+            audio1.play();
+        }
+    });
+
+    var audio = a[0];
+    var first = $('.playlist li .as-link').attr('data-src');
+    $('.playlist li ').first().addClass('pause');
+    audio.load(first);
+
+
+
+
+    $('.playlist li').on('click', function() {
+        if ($(this).attr('class') == 'playing') {
+            $(this).addClass('pause');
+            audio.playPause();
+        } else {
+
+            $(this).addClass('playing').removeClass('pause').siblings().removeClass('playing').removeClass('pause');
+            audio.load($('.as-link', this).attr('data-src'));
+            audio.play();
+        }
+
+        return false;
+
+    });
+
+
+    $('.toggle-lyrics').on('click', function() {
+        $(this).closest('.playlist li').find('.block-lyrics').slideToggle();
+        $(this).toggleClass('selected');
+        return false;
+    });
+
+
+
+    $('.btn').on('click', function() {
+         var href = $(this).attr('href');
+        window.location.href = href;
+        return false;
+
+    });
 
 
     // Count down setup
@@ -132,6 +183,8 @@
     + '<div class="counter-bg mb-4 mb-lg-0"><span class="counter">%M</span> <span class="label">min%!M</span></div> '
     + '<div class="counter-bg"><span class="counter">%S</span> <span class="label">sec%!S</span></div>'));
 });
+
+
 
     //Twitter setup
 
@@ -166,6 +219,8 @@
         return listOfTweets;
     }
     twitterFetcher.fetch(config);
+
+
 
 
     // Tabbed content 
