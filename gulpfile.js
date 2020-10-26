@@ -27,6 +27,7 @@ gulp.task('deploy', function () {
 		'font/**',
 		'img/**',
 		'js/**',
+		'favicon/**',
 		'index.html'
 	];
 
