@@ -1,7 +1,7 @@
-var gulp = require('gulp');
-var browserSync = require('browser-sync').create();
-var ftp = require('vinyl-ftp');
-var logger = require('gulplog');
+const gulp = require('gulp');
+const browserSync = require('browser-sync').create();
+const ftp = require('vinyl-ftp');
+const logger = require('gulplog');
 
 gulp.task('dev', function () {
 	browserSync.init({
@@ -14,7 +14,7 @@ gulp.task('dev', function () {
 
 gulp.task('deploy', function () {
 
-	var conn = ftp.create({
+	const conn = ftp.create({
 		host: 'vrsnsmv.com',
 		user: '398303-ftp',
 		password: 'QFjqZ4DmaFyWQbjynJc',
@@ -22,7 +22,7 @@ gulp.task('deploy', function () {
 		log: logger.info
 	});
 
-	var globs = [
+	const globs = [
 		'css/**',
 		'font/**',
 		'img/**',
