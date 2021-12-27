@@ -1,37 +1,51 @@
-const gulp = require('gulp');
-const browserSync = require('browser-sync').create();
-const ftp = require('vinyl-ftp');
-const logger = require('gulplog');
 
-gulp.task('dev', function () {
-	browserSync.init({
+const gulp = require('gulp')
+const browsersync = require('browser-sync').create()
+
+const webpack = require('webpack')
+const webpackStream =  require('webpack-stream')
+
+function pack() {
+	const mode = process.env.NODE_ENV || 'development';
+
+	return gulp.src('svelte.js')
+		.pipe(webpackStream({
+			output: {
+				filename: 'svelte.js'
+			},
+			module: {
+				rules: [
+					{
+						test: /\.svelte$/,
+						exclude: /node_modules/,
+						use: 'svelte-loader'
+					}
+				]
+			},
+			mode
+		}, webpack))
+		.pipe(gulp.dest('./js/gen/'))
+}
+
+function browserSync(done) {
+	browsersync.init({
 		server: {
-			baseDir: "./"
-		}
+			baseDir: './'
+		},
+		notify: false,
+		port: 3000
 	});
-	gulp.watch("index.html").on('change', browserSync.reload);
-});
+	done();
+}
 
-gulp.task('deploy', function () {
+function watchFiles() {
+	gulp.watch(['./svelte.js', './*.svelte']).on('change', gulp.series(pack, browsersync.reload))
+	gulp.watch(['./**/*.html']).on('change', browsersync.reload)
+}
 
-	const conn = ftp.create({
-		host: '134.119.253.43',
-		user: '398303-ftp',
-		password: 'QFjqZ4DmaFyWQbjynJc',
-		parallel: 10,
-		log: logger.info,
-	});
+// Define tasks
+const watch = gulp.parallel(watchFiles, browserSync)
 
-	const globs = [
-		'css/**',
-		'font/**',
-		'img/**',
-		'js/**',
-		'favicon/**',
-		'index.html'
-	];
-
-	return gulp.src(globs, { base: '.', buffer: false })
-		.pipe(conn.newer('/'))
-		.pipe(conn.dest('/vrsnsmv'));
-});
+// Export tasks
+exports.watch = watch
+exports.pack = pack

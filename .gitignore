@@ -1,6 +1,7 @@
 # Generated content
 node_modules
 vendor
+js/gen
 
 # MacOS
 .DS_Store
