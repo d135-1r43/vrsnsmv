@@ -15,11 +15,11 @@ gulp.task('dev', function () {
 gulp.task('deploy', function () {
 
 	const conn = ftp.create({
-		host: 'vrsnsmv.com',
+		host: '134.119.253.43',
 		user: '398303-ftp',
 		password: 'QFjqZ4DmaFyWQbjynJc',
 		parallel: 10,
-		log: logger.info
+		log: logger.info,
 	});
 
 	const globs = [

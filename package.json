@@ -4,10 +4,10 @@
   "description": "Statische Webseite für VRS:NSMV",
   "author": "Markus Herhoffer",
   "license": "proprietary",
-  "dependencies": {},
   "devDependencies": {
-    "browser-sync": "^2.26.12",
-    "gulp": "^4.0.2",
-    "vinyl-ftp": "^0.6.1"
+    "browser-sync": "2.27.7",
+    "gulp": "4.0.2",
+    "gulplog": "^1.0.0",
+    "vinyl-ftp": "0.6.1"
   }
 }
