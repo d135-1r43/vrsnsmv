@@ -1,0 +1,7 @@
+a.contact {
+    color: white;
+}
+
+a.contact:hover {
+    color: #ff5252;
+}

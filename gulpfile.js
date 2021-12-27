@@ -5,6 +5,21 @@ const browsersync = require('browser-sync').create()
 const webpack = require('webpack')
 const webpackStream =  require('webpack-stream')
 
+function bootstrap() {
+	return gulp.src([
+		'./node_modules/bootstrap/dist/**/*',
+		'!./node_modules/bootstrap/dist/css/bootstrap-grid*',
+		'!./node_modules/bootstrap/dist/css/bootstrap-reboot*'
+	]).pipe(gulp.dest('./vendor/bootstrap'))
+}
+
+function jquery() {
+	return gulp.src([
+		'./node_modules/jquery/dist/*',
+		'!./node_modules/jquery/dist/core.js'
+	]).pipe(gulp.dest('./vendor/jquery'))
+}
+
 function pack() {
 	const mode = process.env.NODE_ENV || 'development';
 
@@ -45,7 +60,9 @@ function watchFiles() {
 
 // Define tasks
 const watch = gulp.parallel(watchFiles, browserSync)
+const vendor = gulp.parallel(bootstrap, jquery)
 
 // Export tasks
 exports.watch = watch
 exports.pack = pack
+exports.vendor = vendor

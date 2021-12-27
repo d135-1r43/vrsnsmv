@@ -314,7 +314,6 @@ Created by : mutationthemes
      text-transform: uppercase;
      margin-left: 1.9625rem;
      font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 }
 
 .main-nav ul li i{
@@ -323,7 +322,6 @@ Created by : mutationthemes
 
  .main-nav ul li.block-helper:last-child {
      margin-left: .625rem;
-
 }
  .main-menu li a {
      color: #ffffff;
@@ -350,7 +348,6 @@ Created by : mutationthemes
 }
  .header.switched-header .main-nav li a {
      color: #949494;
-     
 }
 
 
