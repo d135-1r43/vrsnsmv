@@ -5,9 +5,9 @@
   "author": "Markus Herhoffer",
   "license": "proprietary",
   "devDependencies": {
-    "browser-sync": "2.27.7",
-    "gulp": "4.0.2",
-    "gulplog": "^1.0.0",
-    "vinyl-ftp": "0.6.1"
+    "browser-sync": "^2.29.3",
+    "gulp": "^4.0.2",
+    "gulplog": "^2.0.1",
+    "vinyl-ftp": "^0.6.1"
   }
 }

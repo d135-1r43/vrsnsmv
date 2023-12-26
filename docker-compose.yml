@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  vrsnsmv:
+    image: vrsnsmv:2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:80"
