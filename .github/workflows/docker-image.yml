@@ -25,3 +25,4 @@ jobs:
       with:
         context: .
         push: true
+        tags: ghcr.io/d135-1r43/vrsnsmv:latest
