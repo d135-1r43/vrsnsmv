@@ -2,7 +2,7 @@ version: '3'
 
 services:
   vrsnsmv:
-    image: vrsnsmv:2
+    image: ghcr.io/d135-1r43/vrsnsmv:latest
     build:
       context: .
       dockerfile: Dockerfile
