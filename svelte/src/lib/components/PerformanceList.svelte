@@ -15,43 +15,49 @@
 			<p class="text-gray-400 text-lg">No upcoming performances scheduled at this time.</p>
 		</div>
 	{:else}
-		{#each events as event}
-			<div
-				class="performance-item flex flex-col lg:flex-row items-start lg:items-center justify-between border-b border-white/10 py-8 gap-4"
-			>
-				<!-- Date -->
-				<div class="date-col w-full lg:w-auto">
-					<p class="font-mono text-base mb-0 text-white">{formatEventDate(event.date)}</p>
-				</div>
-
-				<!-- Location & Venue -->
-				<div class="location-col flex-1">
-					<h4 class="font-heading text-xl mb-1 text-white">
-						{formatLocation(event.city, event.country_code)}
-					</h4>
-					<p class="text-gray-400 text-sm mb-0">
-						{formatVenue(event.location, event.event_name)}
-					</p>
-					{#if event.special}
-						<p class="text-gray-500 text-xs italic mt-1">{event.special}</p>
-					{/if}
-				</div>
-
-				<!-- Info/Ticket Button (only if ticket_link exists) -->
-				{#if event.ticket_link}
-					<div class="button-col w-full lg:w-auto">
-						<a
-							href={event.ticket_link}
-							target="_blank"
-							rel="noopener noreferrer"
-							class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 text-xs uppercase font-nav font-semibold tracking-wider hover:bg-primary-dark transition-colors no-underline"
-						>
-							<i class="icon-ticket"></i>
-							Info
-						</a>
+		<div class="space-y-2">
+			{#each events as event}
+				<div
+					class="performance-item group flex items-center justify-center gap-4 border-b border-white/5 py-4 hover:border-white/20 transition-all duration-300"
+				>
+					<!-- Date -->
+					<div class="date-col font-mono text-sm text-gray-500 w-24 text-right shrink-0">
+						{formatEventDate(event.date)}
 					</div>
-				{/if}
-			</div>
-		{/each}
+
+					<!-- Separator -->
+					<div class="text-white/20">·</div>
+
+					<!-- Location & Venue - All in one line -->
+					<div class="location-col min-w-0 max-w-3xl">
+						<div class="flex items-center justify-center gap-3 text-sm">
+							<span class="text-white font-medium">{event.city}</span>
+							<span class="text-gray-600 text-xs uppercase tracking-wider">{event.country_code}</span>
+							{#if event.event_name}
+								<span class="text-white/30">·</span>
+								<span class="text-gray-400 truncate">{event.event_name}</span>
+							{/if}
+							<span class="text-white/30">·</span>
+							<span class="text-gray-500 truncate">{event.location}</span>
+							{#if event.special}
+								<span class="text-white/30">·</span>
+								<span class="text-gray-600 italic text-xs truncate">{event.special}</span>
+							{/if}
+							{#if event.ticket_link}
+								<span class="text-white/30">·</span>
+								<a
+									href={event.ticket_link}
+									target="_blank"
+									rel="noopener noreferrer"
+									class="text-gray-600 hover:text-white text-xs uppercase tracking-widest transition-colors opacity-0 group-hover:opacity-100"
+								>
+									Info
+								</a>
+							{/if}
+						</div>
+					</div>
+				</div>
+			{/each}
+		</div>
 	{/if}
 </div>
