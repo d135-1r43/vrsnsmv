@@ -8,7 +8,7 @@
 			© {currentYear} VRS:NSMV
 		</p>
 		<p class="text-footer text-xs opacity-60">
-			VRS:NSMV c/o Markus Herhoffer, Wolfsgartenstraße 11, 85276 Pfaffenhofen
+			VRS:NSMV c/o Markus Herhoffer, Scheyerer Str. 50, 85276 Pfaffenhofen
 		</p>
 	</div>
 </footer>

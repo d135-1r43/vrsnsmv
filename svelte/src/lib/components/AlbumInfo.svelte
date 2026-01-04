@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
+
 	const album = {
 		title: 'Vade Retro',
 		artwork: '/images/album/vade-retro-mockup-web.png',
@@ -10,82 +12,63 @@
 	};
 </script>
 
-<div class="album-info text-center">
-	<!-- Album Artwork -->
-	<div class="album-artwork mb-12">
-		<img src={album.artwork} alt={album.title} class="w-full max-w-2xl mx-auto" />
-	</div>
-
-	<!-- Bandcamp Player -->
-	<div class="bandcamp-player mb-12">
-		<iframe
-			title="Bandcamp Player"
-			style="border: 0; width: 100%; height: 42px;"
-			src={album.bandcampEmbed}
-			seamless
-		>
-		</iframe>
-	</div>
-
-	<!-- Album Details -->
-	<div class="album-details mb-8">
-		<div class="overflow-x-auto">
-			<table class="w-full max-w-2xl mx-auto text-left">
-				<tbody>
-					<tr class="border-b border-white/10">
-						<td class="py-4 px-4 font-heading text-lg text-white">Title:</td>
-						<td class="py-4 px-4 text-white">{album.title}</td>
-					</tr>
-					<tr class="border-b border-white/10">
-						<td class="py-4 px-4 font-heading text-lg text-white">Length:</td>
-						<td class="py-4 px-4 text-white">{album.length}</td>
-					</tr>
-					<tr class="border-b border-white/10">
-						<td class="py-4 px-4 font-heading text-lg text-white">Release Date:</td>
-						<td class="py-4 px-4 text-white">{album.releaseDate}</td>
-					</tr>
-				</tbody>
-			</table>
+<div class="album-info">
+	<!-- Album Artwork (constrained to lg:w-8/12) -->
+	<div class="flex justify-center mb-20">
+		<div class="w-full lg:w-8/12 md:w-10/12">
+			<img src={album.artwork} alt={`${album.title} by VRS:NSMV`} class="w-full" />
 		</div>
 	</div>
 
-	<!-- Links -->
-	<div class="album-links flex flex-wrap justify-center gap-4">
-		<a
-			href={album.bandcampUrl}
-			target="_blank"
-			rel="noopener noreferrer"
-			class="inline-flex items-center gap-2 border-2 border-white/10 px-6 py-3 text-white/70 hover:text-white hover:border-white/30 transition-all no-underline"
-		>
-			<i class="socicon-bandcamp text-xl"></i>
-			<span class="font-nav text-xs uppercase">Bandcamp</span>
-		</a>
-		<a
-			href="https://open.spotify.com/artist/your-artist-id"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="inline-flex items-center gap-2 border-2 border-white/10 px-6 py-3 text-white/70 hover:text-white hover:border-white/30 transition-all no-underline"
-		>
-			<i class="socicon-spotify text-xl"></i>
-			<span class="font-nav text-xs uppercase">Spotify</span>
-		</a>
-		<a
-			href="https://music.apple.com/artist/your-artist-id"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="inline-flex items-center gap-2 border-2 border-white/10 px-6 py-3 text-white/70 hover:text-white hover:border-white/30 transition-all no-underline"
-		>
-			<i class="socicon-apple text-xl"></i>
-			<span class="font-nav text-xs uppercase">Apple Music</span>
-		</a>
-		<a
-			href="https://www.amazon.com/music/player/artists/your-artist-id"
-			target="_blank"
-			rel="noopener noreferrer"
-			class="inline-flex items-center gap-2 border-2 border-white/10 px-6 py-3 text-white/70 hover:text-white hover:border-white/30 transition-all no-underline"
-		>
-			<i class="socicon-amazon text-xl"></i>
-			<span class="font-nav text-xs uppercase">Amazon</span>
-		</a>
+	<!-- Bandcamp Player (constrained to lg:w-8/12) -->
+	<div class="flex justify-center mb-16">
+		<div class="w-full lg:w-8/12 md:w-10/12">
+			{#if browser}
+				<iframe
+					title="Bandcamp Player"
+					class="border-0 w-full h-[42px]"
+					src={album.bandcampEmbed}
+				></iframe>
+			{/if}
+		</div>
+	</div>
+
+	<!-- Album Details (constrained to lg:w-4/12) -->
+	<div class="flex justify-center">
+		<div class="w-full lg:w-4/12 md:w-8/12">
+			<div class="text-center pb-12">
+				<div class="block-album-info mb-8">
+					<ul class="list-none p-0 m-0 space-y-4">
+						<li class="border-b border-white/10 pb-4">
+							<h5 class="inline-block font-heading text-lg text-white mr-4">Title</h5>
+							<span class="text-white">{album.title}</span>
+						</li>
+						<li class="border-b border-white/10 pb-4">
+							<h5 class="inline-block font-heading text-lg text-white mr-4">Length</h5>
+							<span class="text-white">{album.length}</span>
+						</li>
+						<li class="border-b border-white/10 pb-4">
+							<h5 class="inline-block font-heading text-lg text-white mr-4">Release Date</h5>
+							<span class="text-white">{album.releaseDate}</span>
+						</li>
+					</ul>
+				</div>
+
+				<!-- Social Links - Only Bandcamp -->
+				<ul class="flex justify-center gap-3 p-0 m-0 list-none mt-8">
+					<li>
+						<a
+							href={album.bandcampUrl}
+							target="_blank"
+							rel="noopener noreferrer"
+							aria-label="Listen on Bandcamp"
+							class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all text-xl"
+						>
+							<i class="socicon-bandcamp"></i>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 	</div>
 </div>

@@ -78,6 +78,7 @@
 								href="https://www.instagram.com/vrs_nsmv/"
 								target="_blank"
 								rel="noopener noreferrer"
+								aria-label="Follow on Instagram"
 								class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all"
 							>
 								<i class="socicon-instagram text-xl"></i>
