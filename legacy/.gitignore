@@ -1,0 +1,12 @@
+# Generated content
+node_modules
+vendor
+
+# MacOS
+.DS_Store
+
+# vim
+*.swp
+
+# IntelliJ
+.idea/
