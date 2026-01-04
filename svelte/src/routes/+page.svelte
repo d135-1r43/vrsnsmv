@@ -31,7 +31,9 @@
 		<div class="flex justify-center">
 			<div class="w-full md:w-10/12 lg:w-9/12">
 				<div class="text-center mb-20">
-					<h1 class="font-heading text-5xl text-white">Performances</h1>
+					<h1 class="font-heading text-5xl text-white">
+						<span class="block-title">Performances</span>
+					</h1>
 				</div>
 				<PerformanceList events={data.futureEvents} />
 
@@ -52,7 +54,9 @@
 			<div class="flex justify-center">
 				<div class="w-full md:w-10/12 lg:w-9/12">
 					<div class="text-center mb-20">
-						<h1 class="font-heading text-5xl text-white">Past Performances</h1>
+						<h1 class="font-heading text-5xl text-white">
+							<span class="block-title">Past Performances</span>
+						</h1>
 					</div>
 					<PerformanceList events={data.pastEvents} />
 				</div>
@@ -67,7 +71,9 @@
 		<div class="flex justify-center">
 			<div class="w-full md:w-10/12 lg:w-9/12">
 				<div class="text-center mb-20">
-					<h1 class="font-heading text-5xl text-white">Latest Release</h1>
+					<h1 class="font-heading text-5xl text-white">
+						<span class="block-title">Latest Release</span>
+					</h1>
 				</div>
 				<AlbumInfo />
 			</div>
@@ -126,7 +132,9 @@
 		<div class="flex justify-center">
 			<div class="w-full md:w-10/12 lg:w-9/12">
 				<div class="text-center mb-20">
-					<h1 class="font-heading text-5xl text-white">Contact</h1>
+					<h1 class="font-heading text-5xl text-white">
+						<span class="block-title">Contact</span>
+					</h1>
 				</div>
 				<ContactCard />
 			</div>
