@@ -1,2 +1,165 @@
 @import 'tailwindcss';
 @plugin '@tailwindcss/typography';
+
+@theme {
+	/* Color Palette */
+	--color-primary: #ff5252;
+	--color-primary-dark: #d0343a;
+	--color-dark: #13181d;
+	--color-darker: #090d11;
+	--color-light: #ffffff;
+	--color-gray: #949494;
+	--color-footer: #292929;
+
+	/* Typography */
+	--font-family-heading: pragmatapro-fraktur, serif;
+	--font-family-nav: 'Raleway', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	--font-family-mono: 'Source Code Pro', monospace;
+	--font-family-body: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+	/* Spacing */
+	--spacing-section-y: 7.42857rem;
+	--spacing-gap-md: 5rem;
+	--spacing-gap-sm: 3rem;
+}
+
+/* Font Face Declarations */
+@font-face {
+	font-family: 'Socicon';
+	src:
+		url('/fonts/Socicon.woff2') format('woff2'),
+		url('/fonts/Socicon.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
+	font-family: 'fontello';
+	src:
+		url('/fonts/fontello.woff2') format('woff2'),
+		url('/fonts/fontello.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+/* Icon Font Base Classes */
+[class^='socicon-'],
+[class*=' socicon-'] {
+	font-family: 'Socicon' !important;
+	speak: never;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+[class^='icon-'],
+[class*=' icon-'] {
+	font-family: 'fontello' !important;
+	font-style: normal;
+	font-weight: normal;
+	speak: never;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Socicon Characters */
+.socicon-amazon:before {
+	content: '\e004';
+}
+.socicon-apple:before {
+	content: '\e008';
+}
+.socicon-bandcamp:before {
+	content: '\e00b';
+}
+.socicon-instagram:before {
+	content: '\e044';
+}
+.socicon-spotify:before {
+	content: '\e079';
+}
+
+/* Fontello Icon Characters */
+.icon-angle-up:before {
+	content: '\e8ae';
+}
+.icon-ticket:before {
+	content: '\e92c';
+}
+.icon-mask:before {
+	content: '\e000';
+}
+
+/* Global Styles */
+body {
+	background: var(--color-dark);
+	color: var(--color-light);
+	font-family: var(--font-family-body);
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* Selection color */
+::selection {
+	background: var(--color-primary);
+	color: var(--color-light);
+}
+
+::-moz-selection {
+	background: var(--color-primary);
+	color: var(--color-light);
+}
+
+/* Smooth scrolling */
+html {
+	scroll-behavior: smooth;
+}
+
+/* Background image zoom animation */
+@keyframes zoom {
+	0%,
+	100% {
+		transform: scale(1, 1);
+	}
+	50% {
+		transform: scale(1.1, 1.1);
+	}
+}
+
+.animate-zoom {
+	animation: zoom 15s ease 0s normal both infinite;
+}
+
+/* Custom utility classes */
+.font-heading {
+	font-family: var(--font-family-heading);
+}
+
+.font-nav {
+	font-family: var(--font-family-nav);
+}
+
+.font-body {
+	font-family: var(--font-family-body);
+}
+
+.bg-dark {
+	background-color: var(--color-dark);
+}
+
+.text-primary {
+	color: var(--color-primary);
+}
+
+.bg-primary {
+	background-color: var(--color-primary);
+}
