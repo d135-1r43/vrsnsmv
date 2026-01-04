@@ -1,9 +1,16 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import Header from '$lib/components/Header.svelte';
 	import PerformanceList from '$lib/components/PerformanceList.svelte';
 	import AlbumInfo from '$lib/components/AlbumInfo.svelte';
 	import ContactCard from '$lib/components/ContactCard.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+
+	interface Props {
+		data: PageData;
+	}
+
+	let { data }: Props = $props();
 </script>
 
 <!-- Hero Section -->
@@ -26,11 +33,33 @@
 				<div class="text-center mb-20">
 					<h1 class="font-heading text-5xl text-white">Performances</h1>
 				</div>
-				<PerformanceList />
+				<PerformanceList events={data.futureEvents} />
+
+			{#if data.error}
+				<div class="text-center mt-8">
+					<p class="text-gray-500 text-sm">Unable to load events. Please check back later.</p>
+				</div>
+			{/if}
 			</div>
 		</div>
 	</div>
 </section>
+
+<!-- Past Performances Section -->
+{#if data.pastEvents && data.pastEvents.length > 0}
+	<section id="past-tour" class="past-tour bg-[#0d0d0d] py-[7.42857rem]">
+		<div class="container mx-auto px-4">
+			<div class="flex justify-center">
+				<div class="w-full md:w-10/12 lg:w-9/12">
+					<div class="text-center mb-20">
+						<h1 class="font-heading text-5xl text-white">Past Performances</h1>
+					</div>
+					<PerformanceList events={data.pastEvents} />
+				</div>
+			</div>
+		</div>
+	</section>
+{/if}
 
 <!-- Latest Release Section -->
 <section id="album" class="latest py-[7.42857rem]">
