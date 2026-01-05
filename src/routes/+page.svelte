@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { PageData } from './$types';
+	import GlitchHero from '$lib/components/GlitchHero.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import PerformanceList from '$lib/components/PerformanceList.svelte';
 	import AlbumInfo from '$lib/components/AlbumInfo.svelte';
@@ -14,17 +15,9 @@
 	let { data }: Props = $props();
 </script>
 
-<!-- Hero Section -->
-<section id="wrapper" class="hero relative h-screen overflow-hidden">
-	<div class="absolute inset-0 bg-[#151514]">
-		<img
-			src="/images/hero-logo.jpg"
-			alt="VRS:NSMV"
-			class="w-full h-full object-cover animate-zoom"
-		/>
-	</div>
-	<Header />
-</section>
+<!-- Hero Section with Glitch Effect -->
+<GlitchHero />
+<Header />
 
 <SectionDivider />
 
