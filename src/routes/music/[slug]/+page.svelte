@@ -32,22 +32,10 @@
 	<meta name="description" content="{release.title} by VRS:NSMV - {release.type} released {formatReleaseDate(release.release_date)}" />
 </svelte:head>
 
-<!-- Hero Section -->
-<section class="hero relative min-h-[30vh] flex items-center justify-center bg-dark overflow-hidden">
-	<div class="absolute inset-0 bg-[#151514]">
-		<img
-			src={artworkUrl}
-			alt="{release.title}"
-			class="w-full h-full object-cover opacity-20 blur-xl"
-		/>
-	</div>
-	<Header />
-</section>
-
-<SectionDivider />
+<Header />
 
 <!-- Release Detail Section -->
-<section class="release-detail bg-dark py-[7.42857rem]">
+<section class="release-detail bg-dark pt-32 pb-[7.42857rem]">
 	<div class="container mx-auto px-4">
 		<div class="flex justify-center">
 			<div class="w-full md:w-10/12 lg:w-8/12">
