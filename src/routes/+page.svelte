@@ -5,6 +5,7 @@
 	import AlbumInfo from '$lib/components/AlbumInfo.svelte';
 	import ContactCard from '$lib/components/ContactCard.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import SectionDivider from '$lib/components/SectionDivider.svelte';
 
 	interface Props {
 		data: PageData;
@@ -24,6 +25,8 @@
 	</div>
 	<Header />
 </section>
+
+<SectionDivider />
 
 <!-- Performances Section -->
 <section id="tour" class="tour bg-dark py-[7.42857rem]">
@@ -47,6 +50,8 @@
 	</div>
 </section>
 
+<SectionDivider />
+
 <!-- Past Performances Section -->
 {#if data.pastEvents && data.pastEvents.length > 0}
 	<section id="past-tour" class="past-tour bg-[#0d0d0d] py-[7.42857rem]">
@@ -63,6 +68,7 @@
 			</div>
 		</div>
 	</section>
+	<SectionDivider />
 {/if}
 
 <!-- Latest Release Section -->
@@ -80,6 +86,8 @@
 		</div>
 	</div>
 </section>
+
+<SectionDivider />
 
 <!-- About Section -->
 <section id="about" class="about overlay relative min-h-[70vh] flex items-center py-24">
@@ -125,6 +133,8 @@
 		</div>
 	</div>
 </section>
+
+<SectionDivider />
 
 <!-- Contact Section -->
 <section id="contact" class="contact bg-dark py-[7.42857rem]">
