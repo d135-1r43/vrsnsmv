@@ -1,38 +1,93 @@
-# sv
+# 🎹 VRS:NSMV
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Official website for **VRS:NSMV** (Sacred and Black Neo-Classical Piano), showcasing performances, releases, and booking information.
 
-## Creating a project
+## Technology Stack
 
-If you're seeing this, you've probably already done this step. Congrats!
+- **Svelte 5** with new runes syntax (`$state`, `$props`, `$bindable`)
+- **SvelteKit 2.49.2** with Node adapter
+- **TypeScript** for type safety
+- **Tailwind CSS v4** via `@tailwindcss/vite` plugin
+- **Vite 7** as the build tool
+- **pnpm** as the package manager
 
-```sh
-# create a new project in the current directory
-npx sv create
+## Development
 
-# create a new project in my-app
-npx sv create my-app
+### Prerequisites
+
+- Node.js 18+
+- pnpm (install with `npm install -g pnpm`)
+
+### Getting Started
+
+```bash
+# Install dependencies
+pnpm install
+
+# Start development server
+pnpm dev
+
+# Start and open in browser
+pnpm dev -- --open
 ```
 
-## Developing
+The development server will start at `http://localhost:5173`
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+### Available Commands
 
-```sh
-npm run dev
+```bash
+# Type checking
+pnpm check
+pnpm check:watch
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+# Linting & Formatting
+pnpm lint           # Check with Prettier and ESLint
+pnpm format         # Auto-format with Prettier
+
+# Build for production
+pnpm build
+
+# Preview production build
+pnpm preview
 ```
 
-## Building
+## Features
 
-To create a production version of your app:
+- **Hero Section** - Full-screen logo with glitch animation
+- **Performances** - Tour dates with venue info and ticket links
+- **Latest Release** - Album artwork and Bandcamp player integration
+- **About Section** - Project description with styled background
+- **Contact** - Booking and management information
+- **Responsive Design** - Mobile-first with hamburger menu (<990px)
+- **Smooth Scrolling** - Navigation between sections with offset
+- **Dynamic Header** - State changes on scroll (transparent → white)
+- **Scroll-to-Top Button** - Appears after 500px scroll
 
-```sh
-npm run build
+## Build & Deployment
+
+The application uses `@sveltejs/adapter-node` for SSR:
+
+```bash
+pnpm build
 ```
 
-You can preview the production build with `npm run preview`.
+The production build outputs a Node.js server that can be started directly.
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+## Technical Notes
+
+### Svelte 5 Patterns
+
+- Uses new runes syntax: `$state()` for reactive state, `$props()` for props
+- SSR hydration: iframe elements wrapped in `{#if browser}` blocks
+- Snippets rendered with `{@render children()}` in layouts
+
+### Tailwind CSS v4
+
+- Custom theme defined in `layout.css` using `@theme` directive
+- No `tailwind.config.js` file (Tailwind v4 configuration lives in CSS)
+- Custom colors: `--color-primary: #ff5252`, `--color-dark: #13181d`
+- Custom fonts loaded via `@font-face` and Adobe Typekit
+
+## License
+
+All rights reserved. For obvious reasons not available under a free licence. 
