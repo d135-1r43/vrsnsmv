@@ -1,15 +1,7 @@
 <script lang="ts">
-	import { smoothScroll } from '$lib/utils/smoothScroll';
-
 	let { isOpen = $bindable(false) } = $props();
 
-	function handleNavClick(targetId: string) {
-		smoothScroll(targetId);
-		isOpen = false;
-	}
-
-	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
+	function closeMenu() {
 		isOpen = false;
 	}
 </script>
@@ -49,53 +41,58 @@
 	>
 		<ul class="flex flex-col p-0 m-0 list-none">
 			<li class="border-b border-white/10">
-				<button
-					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-					onclick={scrollToTop}
+				<a
+					href="/"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={closeMenu}
 				>
 					Home
-				</button>
+				</a>
 			</li>
 			<li class="border-b border-white/10">
-				<button
-					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-					onclick={() => handleNavClick('tour')}
+				<a
+					href="/#tour"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={closeMenu}
 				>
 					Performances
-				</button>
+				</a>
 			</li>
 			<li class="border-b border-white/10">
-				<button
-					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-					onclick={() => handleNavClick('album')}
+				<a
+					href="/#album"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={closeMenu}
 				>
 					Latest Release
-				</button>
+				</a>
 			</li>
 			<li class="border-b border-white/10">
 				<a
 					href="/music"
 					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
-					onclick={() => (isOpen = false)}
+					onclick={closeMenu}
 				>
 					Music
 				</a>
 			</li>
 			<li class="border-b border-white/10">
-				<button
-					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-					onclick={() => handleNavClick('about')}
+				<a
+					href="/#about"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={closeMenu}
 				>
 					About
-				</button>
+				</a>
 			</li>
 			<li>
-				<button
-					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-					onclick={() => handleNavClick('contact')}
+				<a
+					href="/#contact"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={closeMenu}
 				>
 					Contact
-				</button>
+				</a>
 			</li>
 		</ul>
 	</nav>

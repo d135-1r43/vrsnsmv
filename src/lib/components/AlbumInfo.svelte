@@ -64,9 +64,9 @@
 		</div>
 	</div>
 
-	<!-- Album Details (constrained to lg:w-4/12) -->
+	<!-- Album Details (constrained to lg:w-6/12) -->
 	<div class="flex justify-center">
-		<div class="w-full lg:w-4/12 md:w-8/12">
+		<div class="w-full lg:w-6/12 md:w-8/12">
 			<div class="text-center pb-12">
 				<div class="block-album-info mb-8">
 					<ul class="list-none p-0 m-0 space-y-4">
@@ -80,7 +80,7 @@
 						</li>
 						<li class="border-b border-white/10 pb-4">
 							<h5 class="inline-block font-heading text-lg text-white mr-4">Release Date</h5>
-							<span class="text-white">{displayData.releaseDate}</span>
+							<span class="text-white whitespace-nowrap">{displayData.releaseDate}</span>
 						</li>
 					</ul>
 				</div>

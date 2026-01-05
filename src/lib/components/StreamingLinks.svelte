@@ -44,7 +44,7 @@
 				aria-label="Listen on Apple Music"
 				class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all"
 			>
-				<i class="socicon-applemusic text-xl"></i>
+				<i class="socicon-apple text-xl"></i>
 			</a>
 		</li>
 	{/if}

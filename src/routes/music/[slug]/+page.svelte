@@ -104,7 +104,7 @@
 							<ul class="list-none p-0 m-0 space-y-4">
 								<li class="border-b border-white/10 pb-4 flex justify-between items-baseline">
 									<h5 class="font-heading text-lg text-white">Release Date</h5>
-									<span class="text-white">{formatReleaseDate(release.release_date)}</span>
+									<span class="text-white whitespace-nowrap">{formatReleaseDate(release.release_date)}</span>
 								</li>
 								{#if release.label}
 									<li class="border-b border-white/10 pb-4 flex justify-between items-baseline">

@@ -34,14 +34,14 @@
 	<div class="flex items-center justify-between">
 		<!-- Logo -->
 		<div class="left-part">
-			<button
+			<a
+				href="/"
 				class="logo uppercase font-heading font-bold text-2xl tracking-wider {scrolled
 					? 'text-dark'
-					: 'text-white'} transition-colors border-0 bg-transparent cursor-pointer p-0"
-				onclick={scrollToTop}
+					: 'text-white'} transition-colors no-underline"
 			>
 				VRS:NSMV
-			</button>
+			</a>
 		</div>
 
 		<!-- Desktop Navigation -->
@@ -53,34 +53,34 @@
 				<!-- Desktop Menu -->
 				<ul class="main-menu hidden lg:flex items-center gap-8 m-0 p-0 list-none">
 					<li>
-						<button
+						<a
+							href="/"
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-							onclick={scrollToTop}
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
 						>
 							Home
-						</button>
+						</a>
 					</li>
 					<li>
-						<button
+						<a
+							href="/#tour"
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-							onclick={() => handleNavClick('tour')}
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
 						>
 							Performances
-						</button>
+						</a>
 					</li>
 					<li>
-						<button
+						<a
+							href="/#album"
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-							onclick={() => handleNavClick('album')}
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
 						>
 							Latest Release
-						</button>
+						</a>
 					</li>
 					<li>
 						<a
@@ -93,24 +93,24 @@
 						</a>
 					</li>
 					<li>
-						<button
+						<a
+							href="/#about"
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-							onclick={() => handleNavClick('about')}
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
 						>
 							About
-						</button>
+						</a>
 					</li>
 					<li>
-						<button
+						<a
+							href="/#contact"
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
-							onclick={() => handleNavClick('contact')}
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
 						>
 							Contact
-						</button>
+						</a>
 					</li>
 				</ul>
 			</nav>
