@@ -16,7 +16,7 @@
 </script>
 
 <!-- Hero Section with Glitch Effect -->
-<GlitchHero />
+<GlitchHero youtubeId="3bCLZXLJALw" />
 <Header />
 
 <SectionDivider />

@@ -1,15 +1,74 @@
 <script lang="ts">
-	// No props needed for initial implementation
+	import { browser } from '$app/environment';
+	import { onMount } from 'svelte';
+
+	interface Props {
+		youtubeId?: string;
+	}
+
+	let { youtubeId = '' }: Props = $props();
+	let isMobile = $state(false);
+
+	onMount(() => {
+		isMobile = window.innerWidth < 768;
+
+		// Update on resize
+		const handleResize = () => {
+			isMobile = window.innerWidth < 768;
+		};
+		window.addEventListener('resize', handleResize);
+		return () => window.removeEventListener('resize', handleResize);
+	});
 </script>
 
 <section id="wrapper" class="glitch-hero relative h-screen overflow-hidden">
-	<!-- Background layer with glitch image -->
+	<!-- Background layer with YouTube video or fallback image -->
 	<div class="bg-layer absolute inset-0 bg-[#151514]">
-		<img
-			src="/images/v02_glitch-28-sq.jpg"
-			alt=""
-			class="w-full h-full object-cover animate-zoom"
-		/>
+		{#if browser && youtubeId && !isMobile}
+			<!-- YouTube video for desktop -->
+			<div class="video-wrapper absolute inset-0" aria-hidden="true">
+				<iframe
+					src="https://www.youtube.com/embed/{youtubeId}?autoplay=1&mute=1&loop=1&playlist={youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=12"
+					title="VRS:NSMV Live Performance"
+					allow="autoplay; fullscreen"
+					class="video-iframe"
+				></iframe>
+			</div>
+			<!-- Dark overlay for logo visibility -->
+			<div class="absolute inset-0 bg-black/40 z-[1]"></div>
+			<!-- Watch on YouTube link -->
+			<a
+				href="https://www.youtube.com/watch?v={youtubeId}"
+				target="_blank"
+				rel="noopener noreferrer"
+				class="youtube-link absolute bottom-8 right-8 z-[3] font-mono text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-all duration-300 group"
+			>
+				<span class="relative inline-block">
+					<span class="glitch-text">Watch on YouTube</span>
+					<span class="glitch-text glitch-text-shadow" aria-hidden="true">Watch on YouTube</span>
+				</span>
+				<svg
+					class="inline-block w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform duration-300"
+					fill="none"
+					stroke="currentColor"
+					viewBox="0 0 24 24"
+				>
+					<path
+						stroke-linecap="round"
+						stroke-linejoin="round"
+						stroke-width="2"
+						d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+					/>
+				</svg>
+			</a>
+		{:else}
+			<!-- Fallback: static glitch image (mobile, SSR, or no video ID) -->
+			<img
+				src="/images/v02_glitch-28-sq.jpg"
+				alt=""
+				class="w-full h-full object-cover animate-zoom"
+			/>
+		{/if}
 	</div>
 
 	<!-- SVG Logo with RGB split effect -->
@@ -37,6 +96,41 @@
 	/* Background layer */
 	.bg-layer {
 		z-index: 1;
+	}
+
+	/* Video wrapper */
+	.video-wrapper {
+		overflow: hidden;
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.video-iframe {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		width: 100vw;
+		height: 100vh;
+		min-width: 100%;
+		min-height: 100%;
+		transform: translate(-50%, -50%);
+		pointer-events: none;
+		border: none;
+	}
+
+	/* Scale iframe to cover - handles both landscape and portrait viewports */
+	@media (aspect-ratio > 16/9) {
+		.video-iframe {
+			width: 100vw;
+			height: 56.25vw; /* 16:9 aspect ratio */
+		}
+	}
+
+	@media (aspect-ratio < 16/9) {
+		.video-iframe {
+			width: 177.78vh; /* 16:9 aspect ratio */
+			height: 100vh;
+		}
 	}
 
 	/* Logo container and sizing */
@@ -240,6 +334,57 @@
 		}
 		80% {
 			filter: brightness(0.99) contrast(1);
+		}
+	}
+
+	/* YouTube link styling */
+	.youtube-link {
+		backdrop-filter: blur(4px);
+		background: rgba(0, 0, 0, 0.3);
+		padding: 0.5rem 1rem;
+		border: 1px solid rgba(255, 255, 255, 0.1);
+		border-radius: 2px;
+	}
+
+	.youtube-link:hover {
+		background: rgba(0, 0, 0, 0.5);
+		border-color: rgba(255, 255, 255, 0.2);
+	}
+
+	.glitch-text {
+		display: inline-block;
+	}
+
+	.glitch-text-shadow {
+		position: absolute;
+		top: 0;
+		left: 0;
+		opacity: 0;
+		color: #ff5252;
+		mix-blend-mode: screen;
+	}
+
+	.youtube-link:hover .glitch-text-shadow {
+		animation: linkGlitch 0.3s ease-in-out;
+	}
+
+	@keyframes linkGlitch {
+		0%,
+		100% {
+			opacity: 0;
+			transform: translate(0, 0);
+		}
+		25% {
+			opacity: 0.8;
+			transform: translate(-2px, 0);
+		}
+		50% {
+			opacity: 0.8;
+			transform: translate(2px, 0);
+		}
+		75% {
+			opacity: 0.8;
+			transform: translate(-1px, 0);
 		}
 	}
 
