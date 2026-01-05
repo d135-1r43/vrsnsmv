@@ -88,6 +88,19 @@
 						<p class="text-gray-500 text-sm">Unable to load release information. Please check back later.</p>
 					</div>
 				{/if}
+
+				<!-- Link to All Releases -->
+				<div class="flex justify-center mt-16">
+					<a
+						href="/music"
+						class="inline-flex items-center gap-3 text-white/70 hover:text-primary font-mono text-sm uppercase tracking-[0.2em] hover:tracking-[0.3em] transition-all duration-300 group"
+					>
+						<span>View All Releases</span>
+						<svg class="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+						</svg>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>
