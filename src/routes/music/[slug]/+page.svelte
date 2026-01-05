@@ -17,14 +17,19 @@
 
 	const { release } = data;
 	const artworkUrl = getDirectusAssetUrl(release.cover, { width: 1200, quality: 90, format: 'webp' });
+
+	// Use track embed for Singles (42px height), album embed for Albums/EPs (120px height)
+	const isSingle = release.type === 'Single';
 	const bandcampEmbed = getBandcampEmbedUrl(release.bandcamp_id, {
-		size: 'large',
+		type: isSingle ? 'track' : 'album',
+		size: isSingle ? 'small' : 'large',
 		bgColor: '333333',
 		linkColor: 'ff5252',
 		transparent: true,
 		tracklist: false,
 		artwork: 'none'
 	});
+	const playerHeight = isSingle ? '42px' : '120px';
 </script>
 
 <svelte:head>
@@ -79,7 +84,7 @@
 						<iframe
 							title="Bandcamp Player"
 							class="border-0 w-full"
-							style="height: 120px; max-width: 700px; margin: 0 auto; display: block;"
+							style="height: {playerHeight}; max-width: 700px; margin: 0 auto; display: block;"
 							src={bandcampEmbed}
 						></iframe>
 					</div>

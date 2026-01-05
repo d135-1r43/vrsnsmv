@@ -30,6 +30,7 @@ export function getDirectusAssetUrl(
 export function getBandcampEmbedUrl(
 	bandcampId: number,
 	options?: {
+		type?: 'album' | 'track';
 		size?: 'small' | 'large';
 		bgColor?: string;
 		linkColor?: string;
@@ -39,6 +40,7 @@ export function getBandcampEmbedUrl(
 	}
 ): string {
 	const {
+		type = 'album',
 		size = 'small',
 		bgColor = '333333',
 		linkColor = 'ff5252',
@@ -47,7 +49,7 @@ export function getBandcampEmbedUrl(
 		artwork = 'small'
 	} = options || {};
 
-	let url = `https://bandcamp.com/EmbeddedPlayer/album=${bandcampId}/size=${size}/bgcol=${bgColor}/linkcol=${linkColor}`;
+	let url = `https://bandcamp.com/EmbeddedPlayer/${type}=${bandcampId}/size=${size}/bgcol=${bgColor}/linkcol=${linkColor}`;
 
 	if (tracklist === false) {
 		url += '/tracklist=false';
