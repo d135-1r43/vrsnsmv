@@ -1,0 +1,10 @@
+# for local build only
+
+services:
+  opusirae:
+    image: ghcr.io/d135-1r43/vrsnsmv:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:3000"

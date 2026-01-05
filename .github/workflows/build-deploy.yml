@@ -1,17 +1,18 @@
-name: Docker Image CI
+name: Build and Deploy
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
     branches: [ "master" ]
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
 
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v6
 
     - name: Log in to the Container registry
       uses: docker/login-action@v3
@@ -21,8 +22,14 @@ jobs:
         password: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Build and push Docker image
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         context: .
         push: true
         tags: ghcr.io/d135-1r43/vrsnsmv:latest
+
+    - name: Call a webhook for Portainer
+      uses: distributhor/workflow-webhook@v3
+      env:
+        webhook_type: 'json'
+        webhook_url: ${{ secrets.PORTAINER_WEBHOOK_URL }}
