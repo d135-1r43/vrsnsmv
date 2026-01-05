@@ -93,7 +93,7 @@
 			<div class="w-full lg:w-10/12">
 				<div class="front-p">
 					<h1 class="text-white font-heading text-5xl mb-6">
-						Sacred and Black Neo-Classical Piano
+						<span class="block-title">Sacred and Black Neo-Classical Piano</span>
 					</h1>
 					<h4 class="text-2xl font-light mb-6 leading-8 text-white">
 						An ethereal blend evoking the dark and sacred rituals of the past – the debut solo from
