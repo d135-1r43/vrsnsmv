@@ -16,7 +16,9 @@
       "Bash(xargs ls:*)",
       "Bash(identify:*)",
       "WebSearch",
-      "Bash(pnpm dev)"
+      "Bash(pnpm dev)",
+      "Bash(pnpm check:*)",
+      "Bash(git push:*)"
     ]
   }
 }
