@@ -1,12 +1,36 @@
 import type { PageServerLoad } from './$types';
 import type { DirectusEvent, DirectusEventsResponse } from '$lib/types/event';
-
-const DIRECTUS_BASE_URL = 'https://directus.herhoffer.net';
-const VRSNSMV_BAND_ID = 3;
+import type { DirectusReleasesResponse, DirectusRelease } from '$lib/types/release';
+import { DIRECTUS_CONFIG } from '$lib/utils/directus';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {
-		const url = `${DIRECTUS_BASE_URL}/items/band/${VRSNSMV_BAND_ID}?fields=events.*`;
+		// Fetch events and latest release in parallel
+		const [eventsResult, latestRelease] = await Promise.all([
+			fetchEvents(fetch),
+			fetchLatestRelease(fetch)
+		]);
+
+		return {
+			...eventsResult,
+			latestRelease,
+			releaseError: !latestRelease
+		};
+	} catch (error) {
+		console.error('Failed to fetch data from Directus:', error);
+		return {
+			futureEvents: [],
+			pastEvents: [],
+			error: true,
+			latestRelease: null,
+			releaseError: true
+		};
+	}
+};
+
+async function fetchEvents(fetch: typeof globalThis.fetch) {
+	try {
+		const url = `${DIRECTUS_CONFIG.BASE_URL}/items/band/${DIRECTUS_CONFIG.BAND_ID}?fields=events.*`;
 
 		const response = await fetch(url);
 
@@ -36,7 +60,26 @@ export const load: PageServerLoad = async ({ fetch }) => {
 			error: false
 		};
 	} catch (error) {
-		console.error('Failed to fetch events from Directus:', error);
+		console.error('Failed to fetch events:', error);
 		return { futureEvents: [], pastEvents: [], error: true };
 	}
-};
+}
+
+async function fetchLatestRelease(fetch: typeof globalThis.fetch): Promise<DirectusRelease | null> {
+	try {
+		const url = `${DIRECTUS_CONFIG.BASE_URL}/items/release/?sort=-release_date&filter[status][_eq]=published&filter[band][_eq]=${DIRECTUS_CONFIG.BAND_ID}&limit=1`;
+
+		const response = await fetch(url);
+
+		if (!response.ok) {
+			console.error('Directus API error for releases:', response.status, response.statusText);
+			return null;
+		}
+
+		const result: DirectusReleasesResponse = await response.json();
+		return result.data?.[0] || null;
+	} catch (error) {
+		console.error('Error fetching latest release:', error);
+		return null;
+	}
+}

@@ -12,7 +12,8 @@
       "WebFetch(domain:directus.herhoffer.net)",
       "Bash(git add:*)",
       "Bash(git commit:*)",
-      "Bash(git push)"
+      "Bash(git push)",
+      "Bash(xargs ls:*)"
     ]
   }
 }

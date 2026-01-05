@@ -139,6 +139,28 @@ html {
 	animation: zoom 15s ease 0s normal both infinite;
 }
 
+/* Fade in up animation for staggered card animations */
+@keyframes fadeInUp {
+	from {
+		opacity: 0;
+		transform: translateY(30px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* Slow spin animation for red cross on hover */
+@keyframes spin-slow {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
 /* Custom utility classes */
 .font-heading {
 	font-family: var(--font-family-heading);

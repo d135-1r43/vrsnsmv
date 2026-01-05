@@ -81,7 +81,13 @@
 						<span class="block-title">Latest Release</span>
 					</h1>
 				</div>
-				<AlbumInfo />
+				<AlbumInfo release={data.latestRelease} />
+
+				{#if data.releaseError}
+					<div class="text-center mt-8">
+						<p class="text-gray-500 text-sm">Unable to load release information. Please check back later.</p>
+					</div>
+				{/if}
 			</div>
 		</div>
 	</div>

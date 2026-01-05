@@ -73,6 +73,15 @@
 				</button>
 			</li>
 			<li class="border-b border-white/10">
+				<a
+					href="/music"
+					class="block w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors no-underline"
+					onclick={() => (isOpen = false)}
+				>
+					Music
+				</a>
+			</li>
+			<li class="border-b border-white/10">
 				<button
 					class="w-full text-left px-6 py-4 font-nav font-semibold text-xs uppercase text-white tracking-wider hover:text-primary transition-colors border-0 bg-transparent cursor-pointer"
 					onclick={() => handleNavClick('about')}

@@ -83,6 +83,16 @@
 						</button>
 					</li>
 					<li>
+						<a
+							href="/music"
+							class="font-nav font-semibold text-xs uppercase {scrolled
+								? 'text-dark'
+								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
+						>
+							Music
+						</a>
+					</li>
+					<li>
 						<button
 							class="font-nav font-semibold text-xs uppercase {scrolled
 								? 'text-dark'
