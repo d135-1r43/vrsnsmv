@@ -84,9 +84,9 @@
 									href={event.ticket_link}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-gray-600 hover:text-white text-xs uppercase tracking-widest transition-colors opacity-0 group-hover:opacity-100"
+									class="text-primary hover:text-white hover:scale-110 hover:tracking-[0.3em] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 inline-block"
 								>
-									Info
+									Tickets
 								</a>
 							{/if}
 						</div>
