@@ -1,10 +1,10 @@
 /**
- * Format ISO date to "20. Apr 24" format (matches current design)
+ * Format ISO date to "20. Apr 24" format (German)
  */
 export function formatEventDate(dateString: string): string {
 	const date = new Date(dateString);
 	const day = date.getDate();
-	const month = date.toLocaleDateString('en-US', { month: 'short' });
+	const month = date.toLocaleDateString('de-DE', { month: 'short' });
 	const year = date.getFullYear().toString().slice(-2);
 	return `${day}. ${month} ${year}`;
 }

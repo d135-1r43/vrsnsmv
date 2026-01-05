@@ -18,14 +18,7 @@
 </svelte:head>
 
 <!-- Hero Section -->
-<section class="hero relative min-h-[40vh] flex items-center justify-center bg-dark overflow-hidden">
-	<div class="absolute inset-0 bg-[#151514]">
-		<img
-			src="/images/hero-logo.jpg"
-			alt="VRS:NSMV"
-			class="w-full h-full object-cover opacity-30"
-		/>
-	</div>
+<section class="hero relative flex items-center justify-center bg-dark pt-32 pb-12">
 	<div class="relative z-10">
 		<h1 class="font-heading text-6xl text-white text-center">
 			<span class="block-title">Music</span>
@@ -37,7 +30,7 @@
 <SectionDivider />
 
 <!-- Releases Grid Section -->
-<section class="releases bg-dark py-[7.42857rem]">
+<section class="releases bg-dark pt-12 pb-[7.42857rem]">
 	<div class="container mx-auto px-4">
 		<div class="flex justify-center">
 			<div class="w-full md:w-11/12 lg:w-10/12">

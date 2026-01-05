@@ -75,15 +75,13 @@
 
 				<!-- Bandcamp Player -->
 				{#if browser}
-					<div class="flex justify-center mb-16">
-						<div class="w-full lg:w-10/12">
-							<iframe
-								title="Bandcamp Player"
-								class="border-0 w-full"
-								style="height: 120px;"
-								src={bandcampEmbed}
-							></iframe>
-						</div>
+					<div class="mb-16">
+						<iframe
+							title="Bandcamp Player"
+							class="border-0 w-full"
+							style="height: 120px; max-width: 700px; margin: 0 auto; display: block;"
+							src={bandcampEmbed}
+						></iframe>
 					</div>
 				{/if}
 

@@ -1,12 +1,12 @@
 import type { DirectusTrack } from '$lib/types/release';
 
 /**
- * Format release date from ISO 8601 to full format
- * @example "2022-10-14" → "October 14, 2022"
+ * Format release date from ISO 8601 to full format (German)
+ * @example "2022-10-14" → "14. Oktober 2022"
  */
 export function formatReleaseDate(dateString: string): string {
 	const date = new Date(dateString);
-	return date.toLocaleDateString('en-US', {
+	return date.toLocaleDateString('de-DE', {
 		year: 'numeric',
 		month: 'long',
 		day: 'numeric'
@@ -23,12 +23,12 @@ export function formatReleaseYear(dateString: string): string {
 }
 
 /**
- * Format release date to short format
- * @example "2022-10-14" → "Oct '22"
+ * Format release date to short format (German)
+ * @example "2022-10-14" → "Okt '22"
  */
 export function formatReleaseShort(dateString: string): string {
 	const date = new Date(dateString);
-	const month = date.toLocaleDateString('en-US', { month: 'short' });
+	const month = date.toLocaleDateString('de-DE', { month: 'short' });
 	const year = date.getFullYear().toString().slice(-2);
 	return `${month} '${year}`;
 }
