@@ -2,7 +2,7 @@
 	import { browser } from '$app/environment';
 	import type { DirectusRelease } from '$lib/types/release';
 	import { getDirectusAssetUrl, getBandcampEmbedUrl } from '$lib/utils/directus';
-	import { formatReleaseDate, calculateTotalDuration } from '$lib/utils/releaseFormatters';
+	import { formatReleaseDate } from '$lib/utils/releaseFormatters';
 	import StreamingLinks from './StreamingLinks.svelte';
 
 	interface Props {
@@ -15,7 +15,6 @@
 	const fallbackAlbum = {
 		title: 'Vade Retro',
 		artwork: '/images/album/vade-retro-mockup-web.png',
-		length: '3:35 min',
 		releaseDate: '2022-10-14',
 		bandcampEmbed:
 			'https://bandcamp.com/EmbeddedPlayer/album=1369685496/size=small/bgcol=333333/linkcol=e32c14/transparent=true/',
@@ -28,7 +27,6 @@
 		? {
 				title: release.title,
 				artwork: getDirectusAssetUrl(release.cover, { width: 800, quality: 85, format: 'webp' }),
-				length: calculateTotalDuration(release.tracks),
 				releaseDate: formatReleaseDate(release.release_date),
 				bandcampEmbed: getBandcampEmbedUrl(release.bandcamp_id, {
 					size: 'small',
@@ -73,10 +71,6 @@
 						<li class="border-b border-white/10 pb-4">
 							<h5 class="inline-block font-heading text-lg text-white mr-4">Title</h5>
 							<span class="text-white">{displayData.title}</span>
-						</li>
-						<li class="border-b border-white/10 pb-4">
-							<h5 class="inline-block font-heading text-lg text-white mr-4">Length</h5>
-							<span class="text-white">{displayData.length}</span>
 						</li>
 						<li class="border-b border-white/10 pb-4">
 							<h5 class="inline-block font-heading text-lg text-white mr-4">Release Date</h5>

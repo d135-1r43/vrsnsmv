@@ -1,34 +1,35 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { onMount } from 'svelte';
+	import { useMobileDetect } from '$lib/composables/use-mobile-detect.svelte';
+	import { buildYouTubeEmbedUrl, getYouTubeWatchUrl } from '$lib/utils/youtube';
+	import { GLITCH_CONFIG } from './glitch-hero.config';
 
 	interface Props {
 		youtubeId?: string;
 	}
 
 	let { youtubeId = '' }: Props = $props();
-	let isMobile = $state(false);
+	const { isMobile } = useMobileDetect(GLITCH_CONFIG.breakpoints.mobile);
 
-	onMount(() => {
-		isMobile = window.innerWidth < 768;
-
-		// Update on resize
-		const handleResize = () => {
-			isMobile = window.innerWidth < 768;
-		};
-		window.addEventListener('resize', handleResize);
-		return () => window.removeEventListener('resize', handleResize);
-	});
+	// Build YouTube URLs (reactive derived values)
+	const embedUrl = $derived(
+		youtubeId
+			? buildYouTubeEmbedUrl(youtubeId, {
+					startTime: GLITCH_CONFIG.youtube.startTime
+				})
+			: null
+	);
+	const watchUrl = $derived(youtubeId ? getYouTubeWatchUrl(youtubeId) : null);
 </script>
 
 <section id="wrapper" class="glitch-hero relative h-screen overflow-hidden">
 	<!-- Background layer with YouTube video or fallback image -->
 	<div class="bg-layer absolute inset-0 bg-[#151514]">
-		{#if browser && youtubeId && !isMobile}
+		{#if browser && embedUrl && !isMobile}
 			<!-- YouTube video for desktop -->
 			<div class="video-wrapper absolute inset-0" aria-hidden="true">
 				<iframe
-					src="https://www.youtube.com/embed/{youtubeId}?autoplay=1&mute=1&loop=1&playlist={youtubeId}&controls=0&showinfo=0&rel=0&modestbranding=1&iv_load_policy=3&playsinline=1&start=12"
+					src={embedUrl}
 					title="VRS:NSMV Live Performance"
 					allow="autoplay; fullscreen"
 					class="video-iframe"
@@ -38,7 +39,7 @@
 			<div class="absolute inset-0 bg-black/40 z-[1]"></div>
 			<!-- Watch on YouTube link -->
 			<a
-				href="https://www.youtube.com/watch?v={youtubeId}"
+				href={watchUrl}
 				target="_blank"
 				rel="noopener noreferrer"
 				class="youtube-link absolute bottom-8 right-8 z-[3] font-mono text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-all duration-300 group"
