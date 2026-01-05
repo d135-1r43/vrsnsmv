@@ -34,12 +34,32 @@ export function getBandcampEmbedUrl(
 		bgColor?: string;
 		linkColor?: string;
 		transparent?: boolean;
+		tracklist?: boolean;
+		artwork?: 'small' | 'none';
 	}
 ): string {
-	const { size = 'small', bgColor = '333333', linkColor = 'ff5252', transparent = true } =
-		options || {};
+	const {
+		size = 'small',
+		bgColor = '333333',
+		linkColor = 'ff5252',
+		transparent = true,
+		tracklist = true,
+		artwork = 'small'
+	} = options || {};
 
-	return `https://bandcamp.com/EmbeddedPlayer/album=${bandcampId}/size=${size}/bgcol=${bgColor}/linkcol=${linkColor}/transparent=${transparent}/`;
+	let url = `https://bandcamp.com/EmbeddedPlayer/album=${bandcampId}/size=${size}/bgcol=${bgColor}/linkcol=${linkColor}`;
+
+	if (tracklist === false) {
+		url += '/tracklist=false';
+	}
+
+	if (artwork === 'none') {
+		url += '/artwork=none';
+	}
+
+	url += `/transparent=${transparent}/`;
+
+	return url;
 }
 
 export const DIRECTUS_CONFIG = {

@@ -21,7 +21,9 @@
 		size: 'large',
 		bgColor: '333333',
 		linkColor: 'ff5252',
-		transparent: true
+		transparent: true,
+		tracklist: false,
+		artwork: 'none'
 	});
 </script>
 
@@ -90,7 +92,7 @@
 							<iframe
 								title="Bandcamp Player"
 								class="border-0 w-full"
-								style="height: 470px;"
+								style="height: 120px;"
 								src={bandcampEmbed}
 							></iframe>
 						</div>
