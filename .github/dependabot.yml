@@ -4,6 +4,11 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    # Wait until releases clear pnpm's 24h minimum-release-age supply-chain
+    # policy (with margin) before opening update PRs, so Docker builds don't
+    # fail on freshly-published versions.
+    cooldown:
+      default-days: 5
     groups:
       npm-dependencies:
         patterns:
@@ -12,6 +17,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5
     groups:
       docker-dependencies:
         patterns:
@@ -20,6 +27,8 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    cooldown:
+      default-days: 5
     groups:
       github-actions:
         patterns:
