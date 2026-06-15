@@ -4,14 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Structure
 
-This is a monorepo for the VRS:NSMV website (Sacred and Black Neo-Classical Piano project) containing two implementations:
+This is the VRS:NSMV website (Sacred and Black Neo-Classical Piano project) built with modern web technologies.
 
-- **`svelte/`** - Modern SvelteKit application with Svelte 5 and Tailwind CSS v4 (current/active)
-- **`legacy/`** - Original static HTML/CSS/JS website with Gulp build system (archived)
-
-**Migration Status:** ✅ Complete - All content and features migrated from legacy to Svelte app
-
-### Svelte Application (`svelte/`)
+### Svelte Application
 
 A modern SvelteKit application using:
 - **Svelte 5** (latest) with new runes syntax (`$state`, `$props`, `$bindable`)
@@ -49,23 +44,9 @@ A modern SvelteKit application using:
 5. **Contact** (`#contact`) - Booking & Management contact card (Markus Herhoffer)
 6. **Footer** - Copyright and address information
 
-### Legacy Application (`legacy/`)
-
-Static website built with Gulp, using BrowserSync for development and vinyl-ftp for deployment.
-
-**Key files:**
-- `index.html` - Main static HTML page
-- `album-single.html` - Album detail page template
-- `gulpfile.js` - Build tasks (dev server, FTP deployment)
-- `Dockerfile` - Nginx-based container setup
-- `docker-compose.yml` - Local Docker development
-
 ## Development Commands
 
-### Svelte (Modern Stack)
-
 ```bash
-cd svelte
 
 # Install dependencies
 pnpm install
@@ -89,39 +70,13 @@ pnpm build
 pnpm preview
 ```
 
-### Legacy Application
-
-```bash
-cd legacy
-
-# Install dependencies
-npm install
-
-# Development server (BrowserSync)
-gulp dev
-
-# Deploy via FTP (uses credentials in gulpfile.js)
-gulp deploy
-
-# Docker local build
-docker-compose up
-```
-
 ## Build & Deployment
 
-### Svelte Application
 - Production builds output a Node.js server (via `@sveltejs/adapter-node`)
 - Run `pnpm build` to create the production build
 - The built application can be started with Node.js from the build output
 
-### Legacy Application
-- **Docker:** GitHub Actions workflow builds and pushes to `ghcr.io/d135-1r43/vrsnsmv:latest` on push to master
-- **FTP:** Legacy deployment uses `gulp deploy` task with vinyl-ftp (credentials in gulpfile.js)
-- **Local:** Docker Compose runs nginx container on port 8080
-
 ## Architecture Notes
-
-### Svelte Application
 
 **Svelte 5 Patterns:**
 - Uses new runes syntax: `$state()` for reactive state, `$props()` for component props, `$bindable()` for two-way bindings
@@ -159,12 +114,6 @@ docker-compose up
 - ESLint with Svelte plugin and Prettier integration
 - Hot module reloading via Vite dev server
 
-### Legacy Application
-- Single-page static site with smooth scrolling sections
-- Sections: Hero, Performances (tour), Latest Release (album), About, Contact
-- Uses Bootstrap grid, Flexslider for image carousels, Magnific Popup for modals
-- Custom fonts loaded via Adobe Typekit
-
 ## Git Workflow
 
 - Main branch: `master`
@@ -173,8 +122,6 @@ docker-compose up
 
 ## Important Notes
 
-- **Package Manager:** Use `pnpm` for the Svelte app, `npm` for legacy
-- **FTP Credentials:** The legacy gulpfile.js contains FTP credentials - these should be moved to environment variables
-- **Migration Complete:** All content, assets, and interactive features have been migrated from legacy to Svelte app
+- **Package Manager:** Use `pnpm` for dependency management
 - **Performance Data:** The 4 performance entries in `PerformanceList.svelte` are hardcoded from 2022-2024 events
 - **Browser Testing:** Always test in Chrome browser during development to catch hydration and rendering issues early
