@@ -7,6 +7,7 @@
 	import ContactCard from '$lib/components/ContactCard.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import SectionDivider from '$lib/components/SectionDivider.svelte';
+	import SacredField from '$lib/components/SacredField.svelte';
 	import { reveal } from '$lib/actions/reveal';
 	import { scramble } from '$lib/actions/scramble';
 
@@ -120,14 +121,7 @@
 
 <!-- About Section -->
 <section id="about" class="about overlay relative flex min-h-[70vh] items-center py-24">
-	<div class="background-img absolute inset-0 overflow-hidden">
-		<img
-			src="/images/v02_glitch-28-sq.jpg"
-			alt=""
-			class="animate-zoom h-full w-full object-cover"
-		/>
-		<div class="absolute inset-0 bg-dark/80"></div>
-	</div>
+	<SacredField />
 
 	<div class="relative z-10 container mx-auto px-4">
 		<div class="flex justify-center">
