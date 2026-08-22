@@ -8,6 +8,9 @@
 	import SectionDivider from '$lib/components/SectionDivider.svelte';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { reveal } from '$lib/actions/reveal';
+	import { scramble } from '$lib/actions/scramble';
+	import { tilt } from '$lib/actions/tilt';
 
 	interface Props {
 		data: PageData;
@@ -16,7 +19,11 @@
 	let { data }: Props = $props();
 
 	const { release } = data;
-	const artworkUrl = getDirectusAssetUrl(release.cover, { width: 1200, quality: 90, format: 'webp' });
+	const artworkUrl = getDirectusAssetUrl(release.cover, {
+		width: 1200,
+		quality: 90,
+		format: 'webp'
+	});
 
 	// Use track embed for Singles (42px height), album embed for Albums/EPs (120px height)
 	const isSingle = release.type === 'Single';
@@ -34,7 +41,12 @@
 
 <svelte:head>
 	<title>{release.title} - VRS:NSMV</title>
-	<meta name="description" content="{release.title} by VRS:NSMV - {release.type} released {formatReleaseDate(release.release_date)}" />
+	<meta
+		name="description"
+		content="{release.title} by VRS:NSMV - {release.type} released {formatReleaseDate(
+			release.release_date
+		)}"
+	/>
 </svelte:head>
 
 <Header />
@@ -48,42 +60,51 @@
 				<div class="mb-12">
 					<a
 						href="/music"
-						class="inline-flex items-center gap-2 text-primary hover:text-white transition-colors duration-300"
+						class="back-link group inline-flex items-center gap-2 text-primary transition-colors duration-500 hover:text-white"
 					>
-						<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+						<svg
+							class="h-4 w-4 transition-transform duration-500"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								stroke-linecap="round"
+								stroke-linejoin="round"
+								stroke-width="2"
+								d="M15 19l-7-7 7-7"
+							/>
 						</svg>
-						<span class="font-mono text-sm uppercase tracking-wider">Back to Music</span>
+						<span class="rune-link font-mono text-sm tracking-wider uppercase">Back to Music</span>
 					</a>
 				</div>
 
 				<!-- Album Artwork -->
-				<div class="flex justify-center mb-16">
-					<div class="w-full lg:w-10/12 group">
-						<img
-							src={artworkUrl}
-							alt="{release.title} by VRS:NSMV"
-							class="w-full transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
-						/>
+				<div class="mb-16 flex justify-center">
+					<div class="veil w-full lg:w-10/12" use:reveal>
+						<div class="reliquary relic" use:tilt={{ max: 5, lift: 18 }}>
+							<img src={artworkUrl} alt="{release.title} by VRS:NSMV" class="w-full" />
+							<span class="reliquary-sheen" aria-hidden="true"></span>
+						</div>
 					</div>
 				</div>
 
 				<!-- Release Title -->
-				<div class="text-center mb-12">
-					<h1 class="font-heading text-5xl text-white mb-4">
-						{release.title}
+				<div class="veil mb-12 text-center" use:reveal>
+					<h1 class="font-heading mb-4 text-5xl text-white">
+						<span use:scramble>{release.title}</span>
 					</h1>
-					<p class="text-primary text-sm uppercase tracking-[0.3em] font-mono">
+					<p class="font-mono text-sm tracking-[0.3em] text-primary uppercase">
 						{release.type}
 					</p>
 				</div>
 
 				<!-- Bandcamp Player -->
 				{#if browser}
-					<div class="mb-16">
+					<div class="veil mb-16" use:reveal>
 						<iframe
 							title="Bandcamp Player"
-							class="border-0 w-full"
+							class="w-full border-0"
 							style="height: {playerHeight}; max-width: 700px; margin: 0 auto; display: block;"
 							src={bandcampEmbed}
 						></iframe>
@@ -91,24 +112,32 @@
 				{/if}
 
 				<!-- Metadata Table -->
-				<div class="flex justify-center mb-12">
-					<div class="w-full lg:w-8/12">
+				<div class="mb-12 flex justify-center">
+					<div class="veil w-full lg:w-8/12" use:reveal>
 						<div class="metadata-table">
-							<ul class="list-none p-0 m-0 space-y-4">
-								<li class="border-b border-white/10 pb-4 flex justify-between items-baseline">
+							<ul class="m-0 list-none space-y-4 p-0">
+								<li
+									class="rite-row flex items-baseline justify-between border-b border-white/10 pb-4"
+								>
 									<h5 class="font-heading text-lg text-white">Release Date</h5>
-									<span class="text-white whitespace-nowrap">{formatReleaseDate(release.release_date)}</span>
+									<span class="whitespace-nowrap text-white">
+										{formatReleaseDate(release.release_date)}
+									</span>
 								</li>
 								{#if release.label}
-									<li class="border-b border-white/10 pb-4 flex justify-between items-baseline">
+									<li
+										class="rite-row flex items-baseline justify-between border-b border-white/10 pb-4"
+									>
 										<h5 class="font-heading text-lg text-white">Label</h5>
 										<span class="text-white">{release.label}</span>
 									</li>
 								{/if}
 								{#if release.catalog_number}
-									<li class="border-b border-white/10 pb-4 flex justify-between items-baseline">
+									<li
+										class="rite-row flex items-baseline justify-between border-b border-white/10 pb-4"
+									>
 										<h5 class="font-heading text-lg text-white">Catalog Number</h5>
-										<span class="text-white font-mono">{release.catalog_number}</span>
+										<span class="font-mono text-white">{release.catalog_number}</span>
 									</li>
 								{/if}
 							</ul>
@@ -117,7 +146,7 @@
 				</div>
 
 				<!-- Streaming Links -->
-				<div class="flex justify-center mb-16">
+				<div class="veil mb-16 flex justify-center" use:reveal>
 					<StreamingLinks
 						bandcampUrl={release.bandcamp_url}
 						spotifyUrl={release.spotify_url}
@@ -128,9 +157,11 @@
 				<!-- Track Listing -->
 				{#if release.tracks && release.tracks.length > 0}
 					<SectionDivider />
-					<div class="flex justify-center mt-16">
+					<div class="mt-16 flex justify-center">
 						<div class="w-full lg:w-10/12">
-							<h2 class="font-heading text-3xl text-white mb-8 text-center">Track Listing</h2>
+							<h2 class="veil font-heading mb-8 text-center text-3xl text-white" use:reveal>
+								Track Listing
+							</h2>
 							<TrackList tracks={release.tracks} />
 						</div>
 					</div>
@@ -139,10 +170,10 @@
 				<!-- Description -->
 				{#if release.description}
 					<SectionDivider />
-					<div class="flex justify-center mt-16">
-						<div class="w-full lg:w-10/12">
-							<div class="prose prose-invert max-w-none">
-								<p class="text-white/90 leading-loose">{release.description}</p>
+					<div class="mt-16 flex justify-center">
+						<div class="veil w-full lg:w-10/12" use:reveal>
+							<div class="prose max-w-none prose-invert">
+								<p class="leading-loose text-white/90">{release.description}</p>
 							</div>
 						</div>
 					</div>
@@ -155,3 +186,19 @@
 <SectionDivider />
 
 <Footer />
+
+<style>
+	.back-link:hover svg {
+		transform: translateX(-4px);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.back-link svg {
+			transition: none;
+		}
+
+		.back-link:hover svg {
+			transform: none;
+		}
+	}
+</style>

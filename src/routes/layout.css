@@ -10,6 +10,14 @@
 	--color-light: #ffffff;
 	--color-gray: #949494;
 	--color-footer: #292929;
+	--color-void: #05070a;
+	--color-ash: #7b7d80;
+	--color-bone: #e6e1d8;
+	--color-ember: #ff5252;
+	--color-ember-deep: #7a1d20;
+
+	/* Motion */
+	--ease-ritual: cubic-bezier(0.16, 1, 0.3, 1);
 
 	/* Typography */
 	--font-family-heading: pragmatapro-fraktur, serif;
@@ -199,8 +207,280 @@ html {
 	content: '';
 	width: 100%;
 	height: 0.875rem;
-	background: #ff5252;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--color-ember) 14%,
+		var(--color-ember) 86%,
+		transparent
+	);
 	bottom: 0.3rem;
 	left: 0;
 	z-index: -1;
+	transform-origin: left center;
+	box-shadow: 0 0 22px rgba(255, 82, 82, 0.35);
+	transition: transform 1.1s var(--ease-ritual) 140ms;
+}
+
+/* Before the heading is revealed the bar has not been struck yet. */
+.veil:not(.revealed) .block-title::before {
+	transform: scaleX(0);
+}
+
+/* ==========================================================================
+   Ritual interaction language
+   Shared primitives for the reveal / hover / focus micro-interactions.
+   ========================================================================== */
+
+/* Reveal — content lifts out of the dark as it enters the viewport.
+   Paired with the `reveal` action, which flips `.revealed` on. */
+.veil {
+	opacity: 0;
+	transform: translate3d(0, 26px, 0);
+	filter: blur(6px);
+	will-change: opacity, transform, filter;
+}
+
+.veil.revealed {
+	animation: veil-rise 1.1s var(--ease-ritual) var(--veil-delay, 0ms) both;
+}
+
+@keyframes veil-rise {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 26px, 0);
+		filter: blur(6px);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+		filter: blur(0);
+	}
+}
+
+/* Rune underline — a hairline drawn beneath a link on hover. */
+.rune-link {
+	position: relative;
+}
+
+.rune-link::after {
+	content: '';
+	position: absolute;
+	right: 0;
+	bottom: -0.4em;
+	left: 0;
+	height: 1px;
+	background: currentColor;
+	opacity: 0.75;
+	transform: scaleX(0);
+	transform-origin: right center;
+	transition: transform 0.45s var(--ease-ritual);
+}
+
+.rune-link:hover::after,
+.rune-link:focus-visible::after {
+	transform: scaleX(1);
+	transform-origin: left center;
+}
+
+/* Sigil — the cross mark. Breathes on its own, answers the cursor. */
+.sigil {
+	transition:
+		transform 0.7s var(--ease-ritual),
+		filter 0.7s ease,
+		opacity 0.7s ease;
+}
+
+.sigil-breathe {
+	animation: sigil-breathe 7s ease-in-out infinite;
+}
+
+@keyframes sigil-breathe {
+	0%,
+	100% {
+		opacity: 0.7;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 1;
+		transform: scale(1.08);
+	}
+}
+
+/* Magnetic pull, written by the `magnetic` action. */
+.magnetic {
+	transform: translate3d(var(--pull-x, 0), var(--pull-y, 0), 0);
+	transition: transform 0.5s var(--ease-ritual);
+}
+
+/* Candlelit surface — a warm pool of light under the cursor.
+   Driven by the `spotlight` action. */
+.candlelit {
+	position: relative;
+	isolation: isolate;
+}
+
+.candlelit::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	background: radial-gradient(
+		18rem circle at var(--spot-x, 50%) var(--spot-y, 50%),
+		rgba(255, 82, 82, 0.13),
+		transparent 70%
+	);
+	opacity: var(--spot, 0);
+	transition: opacity 0.6s ease;
+	pointer-events: none;
+}
+
+/* Relic — artwork that turns toward the light. Driven by the `tilt` action. */
+.relic {
+	transform: perspective(1100px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg))
+		translateZ(var(--tilt-z, 0));
+	transition: transform 0.6s var(--ease-ritual);
+	will-change: transform;
+}
+
+/* Ember glow for hovered text and marks. */
+.ember-glow {
+	transition:
+		color 0.4s ease,
+		text-shadow 0.5s ease;
+}
+
+.ember-glow:hover,
+.ember-glow:focus-visible {
+	text-shadow: 0 0 18px rgba(255, 82, 82, 0.55);
+}
+
+/* Reliquary — a framed sleeve that catches the light as it is turned. */
+.reliquary {
+	position: relative;
+	overflow: hidden;
+	box-shadow: 0 30px 90px rgba(0, 0, 0, 0.65);
+	transition:
+		transform 0.6s var(--ease-ritual),
+		box-shadow 0.6s ease;
+}
+
+.reliquary:hover {
+	box-shadow:
+		0 40px 110px rgba(0, 0, 0, 0.75),
+		0 0 60px rgba(255, 82, 82, 0.18);
+}
+
+.reliquary-sheen {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(
+		110deg,
+		transparent 35%,
+		rgba(255, 255, 255, 0.12) 50%,
+		transparent 65%
+	);
+	opacity: 0;
+	transform: translateX(-60%);
+	transition:
+		opacity 0.5s ease,
+		transform 1.3s var(--ease-ritual);
+	pointer-events: none;
+}
+
+.reliquary:hover .reliquary-sheen {
+	opacity: 1;
+	transform: translateX(60%);
+}
+
+/* Rite row — a metadata line that warms and shifts as you read it. */
+.rite-row {
+	transition:
+		border-color 0.5s ease,
+		transform 0.5s var(--ease-ritual);
+}
+
+.rite-row:hover {
+	border-color: rgba(255, 82, 82, 0.45);
+	transform: translateX(3px);
+}
+
+/* Rite link — a bordered icon that lifts and takes the flame on approach. */
+.rite-link {
+	position: relative;
+	transition:
+		color 0.45s ease,
+		border-color 0.45s ease,
+		transform 0.55s var(--ease-ritual),
+		box-shadow 0.55s ease;
+}
+
+.rite-link::before {
+	content: '';
+	position: absolute;
+	inset: -0.35rem;
+	border: 1px solid rgba(255, 82, 82, 0.3);
+	opacity: 0;
+	transform: scale(0.75) rotate(45deg);
+	transition:
+		opacity 0.55s ease,
+		transform 0.7s var(--ease-ritual);
+	pointer-events: none;
+}
+
+.rite-link:hover,
+.rite-link:focus-visible {
+	color: #fff;
+	border-color: rgba(255, 82, 82, 0.6);
+	transform: translateY(-4px);
+	box-shadow: 0 0 26px rgba(255, 82, 82, 0.28);
+}
+
+.rite-link:hover::before,
+.rite-link:focus-visible::before {
+	opacity: 1;
+	transform: scale(1) rotate(0deg);
+}
+
+/* Focus stays visible, and looks like it belongs here. */
+:focus-visible {
+	outline: 1px solid var(--color-ember);
+	outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	.veil,
+	.veil.revealed {
+		opacity: 1;
+		transform: none;
+		filter: none;
+		animation: none;
+	}
+
+	.animate-zoom,
+	.sigil-breathe {
+		animation: none;
+	}
+
+	.magnetic,
+	.relic {
+		transform: none;
+	}
+
+	.rite-link,
+	.rite-link::before,
+	.reliquary,
+	.reliquary-sheen,
+	.rite-row {
+		transition: none;
+	}
+
+	.rite-link:hover,
+	.rite-row:hover {
+		transform: none;
+	}
 }

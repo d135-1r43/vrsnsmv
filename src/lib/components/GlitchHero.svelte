@@ -1,8 +1,11 @@
 <script lang="ts">
+	import { onMount } from 'svelte';
 	import { browser } from '$app/environment';
 	import { useMobileDetect } from '$lib/composables/use-mobile-detect.svelte';
 	import { buildYouTubeEmbedUrl, getYouTubeWatchUrl } from '$lib/utils/youtube';
 	import { GLITCH_CONFIG } from './glitch-hero.config';
+	import { magnetic } from '$lib/actions/magnetic';
+	import Sigil from './Sigil.svelte';
 
 	interface Props {
 		youtubeId?: string;
@@ -10,6 +13,19 @@
 
 	let { youtubeId = '' }: Props = $props();
 	const { isMobile } = useMobileDetect(GLITCH_CONFIG.breakpoints.mobile);
+
+	// The descent cue withdraws as soon as the visitor starts moving down.
+	let atTop = $state(true);
+
+	onMount(() => {
+		const handleScroll = () => {
+			atTop = window.scrollY < 120;
+		};
+
+		handleScroll();
+		window.addEventListener('scroll', handleScroll, { passive: true });
+		return () => window.removeEventListener('scroll', handleScroll);
+	});
 
 	// Build YouTube URLs (reactive derived values)
 	const embedUrl = $derived(
@@ -36,20 +52,20 @@
 				></iframe>
 			</div>
 			<!-- Dark overlay for logo visibility -->
-			<div class="absolute inset-0 bg-black/40 z-[1]"></div>
+			<div class="absolute inset-0 z-[1] bg-black/40"></div>
 			<!-- Watch on YouTube link -->
 			<a
 				href={watchUrl}
 				target="_blank"
 				rel="noopener noreferrer"
-				class="youtube-link absolute bottom-8 right-8 z-[3] font-mono text-xs uppercase tracking-[0.2em] text-white/60 hover:text-white transition-all duration-300 group"
+				class="youtube-link group absolute right-8 bottom-8 z-[3] font-mono text-xs tracking-[0.2em] text-white/60 uppercase transition-all duration-300 hover:text-white"
 			>
 				<span class="relative inline-block">
 					<span class="glitch-text">Watch on YouTube</span>
 					<span class="glitch-text glitch-text-shadow" aria-hidden="true">Watch on YouTube</span>
 				</span>
 				<svg
-					class="inline-block w-3 h-3 ml-1 group-hover:translate-x-1 transition-transform duration-300"
+					class="ml-1 inline-block h-3 w-3 transition-transform duration-300 group-hover:translate-x-1"
 					fill="none"
 					stroke="currentColor"
 					viewBox="0 0 24 24"
@@ -67,7 +83,7 @@
 			<img
 				src="/images/v02_glitch-28-sq.jpg"
 				alt=""
-				class="w-full h-full object-cover animate-zoom"
+				class="animate-zoom h-full w-full object-cover"
 			/>
 		{/if}
 	</div>
@@ -85,6 +101,19 @@
 	<!-- Glitch distortion layers -->
 	<div class="glitch-layer glitch-1 absolute inset-0" aria-hidden="true"></div>
 	<div class="glitch-layer glitch-2 absolute inset-0" aria-hidden="true"></div>
+
+	<!-- Descent cue — a thread drawing the eye downward -->
+	<a
+		href="#tour"
+		class="descend {atTop ? '' : 'withdrawn'}"
+		use:magnetic={{ strength: 0.25, max: 7 }}
+		aria-label="Descend to performances"
+		tabindex={atTop ? 0 : -1}
+	>
+		<span class="descend-label">Descend</span>
+		<span class="descend-thread" aria-hidden="true"></span>
+		<Sigil class="descend-mark" />
+	</a>
 </section>
 
 <style>
@@ -454,8 +483,94 @@
 		}
 	}
 
+	/* Descent cue */
+	.descend {
+		position: absolute;
+		bottom: 2.5rem;
+		left: 50%;
+		z-index: 11;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 0.75rem;
+		margin-left: -3rem;
+		width: 6rem;
+		color: rgba(255, 255, 255, 0.55);
+		text-decoration: none;
+		transform: translate3d(var(--pull-x, 0), var(--pull-y, 0), 0);
+		transition:
+			opacity 0.7s ease,
+			color 0.5s ease,
+			transform 0.5s var(--ease-ritual);
+	}
+
+	.descend.withdrawn {
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.descend:hover,
+	.descend:focus-visible {
+		color: #ff5252;
+	}
+
+	.descend-label {
+		font-family: 'Source Code Pro', monospace;
+		font-size: 0.625rem;
+		letter-spacing: 0.35em;
+		text-transform: uppercase;
+		text-indent: 0.35em;
+	}
+
+	.descend-thread {
+		display: block;
+		width: 1px;
+		height: 2.75rem;
+		background: linear-gradient(180deg, currentColor, transparent);
+		transform-origin: top center;
+		animation: thread-fall 2.8s ease-in-out infinite;
+	}
+
+	@keyframes thread-fall {
+		0%,
+		100% {
+			transform: scaleY(0.55);
+			opacity: 0.4;
+		}
+		50% {
+			transform: scaleY(1);
+			opacity: 1;
+		}
+	}
+
+	.descend :global(.descend-mark) {
+		width: 0.75rem;
+		height: 0.75rem;
+		color: #ff5252;
+		opacity: 0.7;
+		transition:
+			transform 0.8s var(--ease-ritual),
+			opacity 0.5s ease;
+	}
+
+	.descend:hover :global(.descend-mark),
+	.descend:focus-visible :global(.descend-mark) {
+		transform: rotate(180deg) scale(1.2);
+		opacity: 1;
+	}
+
 	/* Accessibility: Respect reduced motion preference */
 	@media (prefers-reduced-motion: reduce) {
+		.descend-thread {
+			animation: none;
+		}
+
+		.descend,
+		.descend :global(.descend-mark) {
+			transition: none;
+			transform: none;
+		}
+
 		.logo-glitch::before,
 		.logo-glitch::after,
 		.scanlines,

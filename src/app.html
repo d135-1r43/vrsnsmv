@@ -86,10 +86,7 @@
 		<link rel="stylesheet" href="https://use.typekit.net/ebr2mng.css" />
 
 		<!-- Privacy-friendly analytics by Plausible -->
-		<script
-			async
-			src="https://plausible.herhoffer.net/js/pa-4rkPKPMUqvGqEepJ9Vpf2.js"
-		></script>
+		<script async src="https://plausible.herhoffer.net/js/pa-4rkPKPMUqvGqEepJ9Vpf2.js"></script>
 		<script>
 			window.plausible =
 				window.plausible ||
@@ -103,6 +100,17 @@
 				};
 			plausible.init();
 		</script>
+
+		<!-- Without JS nothing flips the reveal class, so unveil everything. -->
+		<noscript>
+			<style>
+				.veil {
+					opacity: 1 !important;
+					transform: none !important;
+					filter: none !important;
+				}
+			</style>
+		</noscript>
 
 		%sveltekit.head%
 	</head>

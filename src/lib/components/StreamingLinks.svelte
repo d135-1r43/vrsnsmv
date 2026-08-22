@@ -6,46 +6,28 @@
 	}
 
 	let { bandcampUrl, spotifyUrl, appleUrl }: Props = $props();
+
+	const links = $derived(
+		[
+			{ url: bandcampUrl, icon: 'socicon-bandcamp', label: 'Listen on Bandcamp' },
+			{ url: spotifyUrl, icon: 'socicon-spotify', label: 'Listen on Spotify' },
+			{ url: appleUrl, icon: 'socicon-apple', label: 'Listen on Apple Music' }
+		].filter((link) => Boolean(link.url))
+	);
 </script>
 
-<ul class="flex gap-4 mb-4 p-0 list-none">
-	{#if bandcampUrl}
+<ul class="mb-4 flex list-none gap-4 p-0">
+	{#each links as link (link.icon)}
 		<li>
 			<a
-				href={bandcampUrl}
+				href={link.url}
 				target="_blank"
 				rel="noopener noreferrer"
-				aria-label="Listen on Bandcamp"
-				class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all"
+				aria-label={link.label}
+				class="rite-link inline-block border-2 border-white/10 p-2 text-white/70"
 			>
-				<i class="socicon-bandcamp text-xl"></i>
+				<i class="{link.icon} text-xl"></i>
 			</a>
 		</li>
-	{/if}
-	{#if spotifyUrl}
-		<li>
-			<a
-				href={spotifyUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				aria-label="Listen on Spotify"
-				class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all"
-			>
-				<i class="socicon-spotify text-xl"></i>
-			</a>
-		</li>
-	{/if}
-	{#if appleUrl}
-		<li>
-			<a
-				href={appleUrl}
-				target="_blank"
-				rel="noopener noreferrer"
-				aria-label="Listen on Apple Music"
-				class="inline-block border-2 border-white/10 p-2 text-white/70 hover:text-white hover:border-white/30 transition-all"
-			>
-				<i class="socicon-apple text-xl"></i>
-			</a>
-		</li>
-	{/if}
+	{/each}
 </ul>

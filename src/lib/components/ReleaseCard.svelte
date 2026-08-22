@@ -2,6 +2,8 @@
 	import type { DirectusRelease } from '$lib/types/release';
 	import { getDirectusAssetUrl } from '$lib/utils/directus';
 	import { formatReleaseShort } from '$lib/utils/releaseFormatters';
+	import { tilt } from '$lib/actions/tilt';
+	import Sigil from './Sigil.svelte';
 
 	interface Props {
 		release: DirectusRelease;
@@ -9,64 +11,130 @@
 
 	let { release }: Props = $props();
 
-	const artworkUrl = getDirectusAssetUrl(release.cover, { width: 600, quality: 85, format: 'webp' });
+	const artworkUrl = getDirectusAssetUrl(release.cover, {
+		width: 600,
+		quality: 85,
+		format: 'webp'
+	});
 </script>
 
 <a
 	href="/music/{release.slug}"
-	class="release-card group block relative overflow-hidden bg-dark transition-all duration-500 hover:scale-105 hover:brightness-110"
+	class="release-card relic group relative block overflow-hidden bg-dark"
+	use:tilt={{ max: 5, lift: 10 }}
 >
 	<!-- Album artwork -->
 	<div class="artwork-wrapper relative aspect-square overflow-hidden">
 		<img
 			src={artworkUrl}
 			alt="{release.title} cover"
-			class="w-full h-full object-cover transition-all duration-500 group-hover:scale-110"
+			loading="lazy"
+			class="h-full w-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:brightness-75"
 		/>
 
-		<!-- Red cross overlay on hover -->
-		<div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-dark/60">
-			<svg class="w-16 h-16 animate-spin-slow" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-				<path
-					fill="#ff5252"
-					d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-					L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-					l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-					l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-					l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-					l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"
-				/>
-			</svg>
+		<!-- The sigil turns in the dark once the sleeve is approached -->
+		<div class="shroud absolute inset-0 flex items-center justify-center">
+			<Sigil class="spin-mark h-16 w-16 text-primary" />
 		</div>
+
+		<span class="sheen" aria-hidden="true"></span>
 	</div>
 
 	<!-- Metadata -->
-	<div class="release-info p-4 bg-[#0d0d0d]">
-		<div class="flex items-center justify-between gap-2 mb-2">
-			<h3 class="text-white font-medium text-base truncate flex-1">
+	<div class="release-info bg-[#0d0d0d] p-4">
+		<div class="mb-2 flex items-center justify-between gap-2">
+			<h3 class="flex-1 truncate text-base font-medium text-white">
 				{release.title}
 			</h3>
-			<span class="text-primary text-xs uppercase tracking-wider shrink-0 font-mono">
+			<span class="shrink-0 font-mono text-xs tracking-wider text-primary uppercase">
 				{release.type}
 			</span>
 		</div>
-		<p class="text-gray-500 text-sm font-mono">
+		<p class="font-mono text-sm text-gray-500">
 			{formatReleaseShort(release.release_date)}
 		</p>
 	</div>
 </a>
 
 <style>
-	@keyframes spin-slow {
+	.release-card {
+		transition:
+			transform 0.6s var(--ease-ritual),
+			box-shadow 0.6s ease;
+	}
+
+	.release-card:hover {
+		box-shadow:
+			0 30px 70px rgba(0, 0, 0, 0.6),
+			0 0 48px rgba(255, 82, 82, 0.16);
+	}
+
+	.shroud {
+		background: rgba(9, 13, 17, 0.6);
+		opacity: 0;
+		transition: opacity 0.5s ease;
+	}
+
+	.release-card:hover .shroud,
+	.release-card:focus-visible .shroud {
+		opacity: 1;
+	}
+
+	.shroud :global(.spin-mark) {
+		transform: scale(0.6) rotate(-60deg);
+		filter: drop-shadow(0 0 18px rgba(255, 82, 82, 0.6));
+		transition: transform 0.9s var(--ease-ritual);
+	}
+
+	.release-card:hover .shroud :global(.spin-mark),
+	.release-card:focus-visible .shroud :global(.spin-mark) {
+		transform: scale(1) rotate(0deg);
+		animation: mark-turn 9s linear 0.9s infinite;
+	}
+
+	@keyframes mark-turn {
 		from {
-			transform: rotate(0deg);
+			transform: scale(1) rotate(0deg);
 		}
 		to {
-			transform: rotate(360deg);
+			transform: scale(1) rotate(360deg);
 		}
 	}
 
-	.animate-spin-slow {
-		animation: spin-slow 3s linear infinite;
+	/* Light passing over the sleeve. */
+	.sheen {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			110deg,
+			transparent 38%,
+			rgba(255, 255, 255, 0.14) 50%,
+			transparent 62%
+		);
+		opacity: 0;
+		transform: translateX(-70%);
+		transition:
+			opacity 0.4s ease,
+			transform 1.2s var(--ease-ritual);
+		pointer-events: none;
+	}
+
+	.release-card:hover .sheen {
+		opacity: 1;
+		transform: translateX(70%);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.release-card,
+		.sheen,
+		.shroud,
+		.shroud :global(.spin-mark) {
+			transition: none;
+		}
+
+		.release-card:hover .shroud :global(.spin-mark) {
+			animation: none;
+			transform: scale(1);
+		}
 	}
 </style>

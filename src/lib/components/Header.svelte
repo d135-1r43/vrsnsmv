@@ -1,119 +1,94 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { smoothScroll } from '$lib/utils/smoothScroll';
 	import MobileMenu from './MobileMenu.svelte';
+	import { scramble } from '$lib/actions/scramble';
+
+	const NAV_ITEMS = [
+		{ href: '/', label: 'Home' },
+		{ href: '/#tour', label: 'Performances' },
+		{ href: '/#album', label: 'Latest Release' },
+		{ href: '/music', label: 'Music' },
+		{ href: '/#about', label: 'About' },
+		{ href: '/#contact', label: 'Contact' }
+	];
 
 	let scrolled = $state(false);
-	let scrollY = $state(0);
 	let mobileMenuOpen = $state(false);
 
 	onMount(() => {
 		const handleScroll = () => {
-			scrollY = window.scrollY;
-			scrolled = scrollY > 500;
+			scrolled = window.scrollY > 500;
 		};
 
-		window.addEventListener('scroll', handleScroll);
+		handleScroll();
+		window.addEventListener('scroll', handleScroll, { passive: true });
 		return () => window.removeEventListener('scroll', handleScroll);
 	});
-
-	function handleNavClick(targetId: string) {
-		smoothScroll(targetId);
-	}
-
-	function scrollToTop() {
-		window.scrollTo({ top: 0, behavior: 'smooth' });
-	}
 </script>
 
 <header
 	class="header {scrolled
-		? 'fixed top-0 left-0 right-0 bg-white shadow-md'
-		: 'absolute top-0 left-0 right-0'} w-full z-40 transition-all duration-300 px-6 py-4"
+		? 'veiled-bar fixed top-0 right-0 left-0'
+		: 'absolute top-0 right-0 left-0'} z-40 w-full px-6 py-4 transition-all duration-500"
 >
 	<div class="flex items-center justify-between">
-		<!-- Logo -->
+		<!-- Wordmark — re-decodes itself when you touch it -->
 		<div class="left-part">
 			<a
 				href="/"
-				class="logo uppercase font-heading font-bold text-2xl tracking-wider {scrolled
-					? 'text-dark'
-					: 'text-white'} transition-colors no-underline"
+				class="logo font-heading text-2xl font-bold tracking-wider text-white no-underline transition-[letter-spacing,text-shadow] duration-500 hover:tracking-[0.18em] hover:[text-shadow:0_0_24px_rgba(255,82,82,0.6)]"
 			>
-				VRS:NSMV
+				<span use:scramble={{ onHover: true, speed: 1.2, spread: 5 }}>VRS:NSMV</span>
 			</a>
 		</div>
 
-		<!-- Desktop Navigation -->
+		<!-- Navigation -->
 		<div class="right-part">
 			<nav class="main-nav">
-				<!-- Mobile Menu Component -->
 				<MobileMenu bind:isOpen={mobileMenuOpen} />
 
-				<!-- Desktop Menu -->
-				<ul class="main-menu hidden lg:flex items-center gap-8 m-0 p-0 list-none">
-					<li>
-						<a
-							href="/"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							Home
-						</a>
-					</li>
-					<li>
-						<a
-							href="/#tour"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							Performances
-						</a>
-					</li>
-					<li>
-						<a
-							href="/#album"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							Latest Release
-						</a>
-					</li>
-					<li>
-						<a
-							href="/music"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							Music
-						</a>
-					</li>
-					<li>
-						<a
-							href="/#about"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							About
-						</a>
-					</li>
-					<li>
-						<a
-							href="/#contact"
-							class="font-nav font-semibold text-xs uppercase {scrolled
-								? 'text-dark'
-								: 'text-white'} tracking-wider hover:text-primary transition-colors no-underline"
-						>
-							Contact
-						</a>
-					</li>
+				<ul class="main-menu m-0 hidden list-none items-center gap-8 p-0 lg:flex">
+					{#each NAV_ITEMS as item (item.href)}
+						<li>
+							<a
+								href={item.href}
+								class="rune-link font-nav text-xs font-semibold tracking-wider text-white/85 uppercase no-underline transition-colors duration-300 hover:text-primary"
+							>
+								{item.label}
+							</a>
+						</li>
+					{/each}
 				</ul>
 			</nav>
 		</div>
 	</div>
 </header>
+
+<style>
+	/* Smoked glass rather than a lit panel — the dark never breaks. */
+	.veiled-bar {
+		background: linear-gradient(180deg, rgba(9, 13, 17, 0.92), rgba(9, 13, 17, 0.78));
+		backdrop-filter: blur(14px) saturate(120%);
+		-webkit-backdrop-filter: blur(14px) saturate(120%);
+		border-bottom: 1px solid rgba(255, 82, 82, 0.16);
+		box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+		animation: bar-descend 0.6s var(--ease-ritual) both;
+	}
+
+	@keyframes bar-descend {
+		from {
+			transform: translateY(-100%);
+			opacity: 0;
+		}
+		to {
+			transform: translateY(0);
+			opacity: 1;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.veiled-bar {
+			animation: none;
+		}
+	}
+</style>

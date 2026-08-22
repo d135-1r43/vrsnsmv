@@ -1,6 +1,8 @@
 <script lang="ts">
 	import type { DirectusEvent } from '$lib/types/event';
-	import { formatEventDate, formatLocation, formatVenue } from '$lib/utils/formatters';
+	import { formatEventDate } from '$lib/utils/formatters';
+	import { reveal } from '$lib/actions/reveal';
+	import Sigil from './Sigil.svelte';
 
 	interface Props {
 		events?: DirectusEvent[];
@@ -9,82 +11,67 @@
 	let { events = [] }: Props = $props();
 </script>
 
-<div class="performances-list max-w-5xl mx-auto">
+<div class="performances-list mx-auto max-w-5xl">
 	{#if events.length === 0}
-		<div class="text-center py-12">
-			<p class="text-gray-400 text-lg">No upcoming performances scheduled at this time.</p>
+		<div class="veil py-12 text-center" use:reveal>
+			<div class="mb-6 flex justify-center">
+				<Sigil class="sigil sigil-breathe h-10 w-10 text-primary/25" />
+			</div>
+			<p class="font-mono text-sm tracking-[0.25em] text-gray-500 uppercase">
+				No rites are scheduled
+			</p>
 		</div>
 	{:else}
 		<div class="space-y-2">
-			{#each events as event}
+			{#each events as event, index (event.id)}
 				<div
-					class="performance-item group flex items-center justify-center gap-4 border-b border-white/5 py-4 hover:border-white/20 transition-all duration-300"
+					class="performance-item veil group relative flex items-center justify-center gap-4 border-b border-white/5 py-4 transition-colors duration-500 hover:border-primary/30"
+					use:reveal={{ delay: Math.min(index, 8) * 70 }}
 				>
+					<!-- Light sweeping across the row on approach -->
+					<span class="row-light" aria-hidden="true"></span>
+
 					<!-- Date -->
-					<div class="date-col font-mono text-sm text-gray-500 w-24 text-right shrink-0">
+					<div
+						class="date-col w-24 shrink-0 text-right font-mono text-sm text-gray-500 transition-colors duration-500 group-hover:text-bone"
+					>
 						{formatEventDate(event.date)}
 					</div>
 
-					<!-- Separator -->
-					<svg class="w-2 h-2 inline-block opacity-30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-						<path fill="currentColor" d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-							L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-							l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-							l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-							l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-							l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"/>
-					</svg>
+					<Sigil class="mark h-2 w-2 shrink-0 text-white opacity-30" />
 
-					<!-- Location & Venue - All in one line -->
-					<div class="location-col min-w-0 max-w-3xl">
+					<!-- Location & venue, on one line -->
+					<div class="location-col max-w-3xl min-w-0">
 						<div class="flex items-center justify-center gap-3 text-sm">
-							<span class="text-white font-medium">{event.city}</span>
-							<span class="text-gray-600 text-xs uppercase tracking-wider">{event.country_code}</span>
+							<span
+								class="font-medium text-white transition-[letter-spacing] duration-500 group-hover:tracking-wider"
+							>
+								{event.city}
+							</span>
+							<span class="text-xs tracking-wider text-gray-600 uppercase">
+								{event.country_code}
+							</span>
+
 							{#if event.event_name}
-								<svg class="w-2 h-2 inline-block opacity-30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-									<path fill="currentColor" d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-										L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-										l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-										l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-										l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-										l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"/>
-								</svg>
-								<span class="text-gray-400 truncate">{event.event_name}</span>
+								<Sigil class="mark h-2 w-2 shrink-0 text-white opacity-30" />
+								<span class="truncate text-gray-400">{event.event_name}</span>
 							{/if}
-							<svg class="w-2 h-2 inline-block opacity-30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-								<path fill="currentColor" d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-									L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-									l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-									l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-									l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-									l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"/>
-							</svg>
-							<span class="text-gray-500 truncate">{event.location}</span>
+
+							<Sigil class="mark h-2 w-2 shrink-0 text-white opacity-30" />
+							<span class="truncate text-gray-500">{event.location}</span>
+
 							{#if event.special}
-								<svg class="w-2 h-2 inline-block opacity-30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-									<path fill="currentColor" d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-										L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-										l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-										l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-										l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-										l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"/>
-								</svg>
-								<span class="text-gray-600 italic text-xs truncate">{event.special}</span>
+								<Sigil class="mark h-2 w-2 shrink-0 text-white opacity-30" />
+								<span class="truncate text-xs text-gray-600 italic">{event.special}</span>
 							{/if}
+
 							{#if event.ticket_link}
-								<svg class="w-2 h-2 inline-block opacity-30" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-									<path fill="currentColor" d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-										L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-										l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-										l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-										l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-										l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"/>
-								</svg>
+								<Sigil class="mark h-2 w-2 shrink-0 text-white opacity-30" />
 								<a
 									href={event.ticket_link}
 									target="_blank"
 									rel="noopener noreferrer"
-									class="text-primary hover:text-white hover:scale-110 hover:tracking-[0.3em] font-bold text-xs uppercase tracking-[0.2em] transition-all duration-300 inline-block"
+									class="ticket-link ember-glow shrink-0 font-mono text-xs font-bold tracking-[0.2em] text-primary uppercase transition-all duration-500 hover:tracking-[0.32em] hover:text-white"
 								>
 									Tickets
 								</a>
@@ -96,3 +83,64 @@
 		</div>
 	{/if}
 </div>
+
+<style>
+	.performance-item {
+		overflow: hidden;
+	}
+
+	/* A slow wash of ember light drawn across the row while hovered. */
+	.row-light {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(
+			90deg,
+			transparent,
+			rgba(255, 82, 82, 0.09) 45%,
+			rgba(255, 82, 82, 0.02) 70%,
+			transparent
+		);
+		opacity: 0;
+		transform: translateX(-35%);
+		transition:
+			opacity 0.6s ease,
+			transform 1.1s var(--ease-ritual);
+		pointer-events: none;
+	}
+
+	.performance-item:hover .row-light,
+	.performance-item:focus-within .row-light {
+		opacity: 1;
+		transform: translateX(0);
+	}
+
+	/* The small crosses turn and catch fire with the row. */
+	.performance-item :global(.mark) {
+		transition:
+			transform 0.8s var(--ease-ritual),
+			color 0.6s ease,
+			opacity 0.6s ease;
+	}
+
+	.performance-item:hover :global(.mark),
+	.performance-item:focus-within :global(.mark) {
+		transform: rotate(180deg);
+		color: var(--color-ember);
+		opacity: 0.85;
+	}
+
+	.ticket-link:hover {
+		text-shadow: 0 0 20px rgba(255, 82, 82, 0.7);
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.row-light,
+		.performance-item :global(.mark) {
+			transition: none;
+		}
+
+		.performance-item:hover :global(.mark) {
+			transform: none;
+		}
+	}
+</style>

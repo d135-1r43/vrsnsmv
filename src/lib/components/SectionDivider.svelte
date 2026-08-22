@@ -1,13 +1,82 @@
-<div class="section-divider flex justify-center py-8">
-	<svg class="w-6 h-6" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-		<path
-			fill="#ff5252"
-			d="M823.26,739.28l-75.05,78.77l-65.39-65.39l-68.37,65.39c-1-2.5-26.43-28.91-76.26-79.26l65.61-60.69
-			L499.14,574.31c-38.6,38.64-69.03,70.6-91.29,95.86l64.65,70.6c-3.47,0.5-29.72,22.55-78.77,66.14l-57.22-66.14l-81,81.74
-			l-70.9-80.49l73.2-71.76l-65.46-78.07l78.77-66.18l65.39,65.39l86.2-95.12l-107.01-99.58l-62.42,66.88l-76.54-74.31l69.11-65.39
-			l-69.11-69.85l70.6-74.31l69.85,65.39l72.08-70.6L469,253.49l-69.09,67.66l94.26,97.1l97.98-90.66l-69.85-75.06l81.74-78.03
-			l72.08,70.6l75.8-65.39l71.77,75.5l-75.39,65.05l65.3,63.86l-73.57,80.21c-20.32-18.82-42.36-40.62-66.14-65.39l-96.61,103.29
-			l104.04,96.61l65.39-69.11l76.54,75.05l-69.11,69.11L823.26,739.28z"
-		/>
-	</svg>
+<script lang="ts">
+	import { magnetic } from '$lib/actions/magnetic';
+	import { reveal } from '$lib/actions/reveal';
+	import Sigil from './Sigil.svelte';
+</script>
+
+<div class="section-divider veil flex items-center justify-center gap-6 py-10" use:reveal>
+	<span class="thread thread-left"></span>
+
+	<div class="magnetic sigil-holder" use:magnetic={{ strength: 0.35, max: 8 }}>
+		<Sigil class="sigil sigil-breathe h-6 w-6 text-primary" />
+		<span class="halo"></span>
+	</div>
+
+	<span class="thread thread-right"></span>
 </div>
+
+<style>
+	.thread {
+		display: block;
+		height: 1px;
+		width: 4rem;
+		background: linear-gradient(90deg, transparent, rgba(255, 82, 82, 0.45));
+		transition:
+			width 0.9s var(--ease-ritual),
+			opacity 0.9s ease;
+		opacity: 0.6;
+	}
+
+	.thread-right {
+		background: linear-gradient(90deg, rgba(255, 82, 82, 0.45), transparent);
+	}
+
+	.section-divider:hover .thread {
+		width: 7rem;
+		opacity: 1;
+	}
+
+	.sigil-holder {
+		position: relative;
+		display: grid;
+		place-items: center;
+	}
+
+	.sigil-holder :global(.sigil) {
+		position: relative;
+		z-index: 1;
+	}
+
+	/* A ring of light that opens outward when the mark is approached. */
+	.halo {
+		position: absolute;
+		inset: -0.75rem;
+		border: 1px solid rgba(255, 82, 82, 0.35);
+		border-radius: 50%;
+		opacity: 0;
+		transform: scale(0.6);
+		transition:
+			opacity 0.7s ease,
+			transform 0.7s var(--ease-ritual);
+		pointer-events: none;
+	}
+
+	.sigil-holder:hover .halo {
+		opacity: 1;
+		transform: scale(1);
+	}
+
+	.sigil-holder:hover :global(.sigil) {
+		transform: rotate(180deg) scale(1.15);
+		filter: drop-shadow(0 0 14px rgba(255, 82, 82, 0.75));
+		opacity: 1;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.thread,
+		.halo,
+		.sigil-holder :global(.sigil) {
+			transition: none;
+		}
+	}
+</style>
