@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { DirectusRelease } from '$lib/types/release';
-	import { getDirectusAssetUrl } from '$lib/utils/directus';
-	import { formatReleaseShort } from '$lib/utils/releaseFormatters';
-	import { tilt } from '$lib/actions/tilt';
+	import type { DirectusRelease } from '#lib/types/release.ts';
+	import { getDirectusAssetUrl } from '#lib/utils/directus.ts';
+	import { formatReleaseShort } from '#lib/utils/releaseFormatters.ts';
+	import { tilt } from '#lib/actions/tilt.ts';
 	import Sigil from './Sigil.svelte';
 
 	interface Props {

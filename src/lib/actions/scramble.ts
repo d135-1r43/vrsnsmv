@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '$lib/utils/motion';
+import { prefersReducedMotion } from '#lib/utils/motion.ts';
 
 /** Sigils and ritual marks the text passes through before it settles. */
 const GLYPHS = '†‡✝✞⸸∴∵ΔΨΩΞΛ◈⧫⁂≒⌖';

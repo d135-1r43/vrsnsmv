@@ -1,4 +1,4 @@
-import { isCoarsePointer, prefersReducedMotion } from '$lib/utils/motion';
+import { isCoarsePointer, prefersReducedMotion } from '#lib/utils/motion.ts';
 
 interface MagneticOptions {
 	/** Fraction of the pointer offset the element follows. */

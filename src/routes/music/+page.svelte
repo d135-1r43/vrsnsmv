@@ -1,12 +1,12 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import ReleaseCard from '$lib/components/ReleaseCard.svelte';
-	import SectionDivider from '$lib/components/SectionDivider.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import Sigil from '$lib/components/Sigil.svelte';
-	import { reveal } from '$lib/actions/reveal';
-	import { scramble } from '$lib/actions/scramble';
+	import ReleaseCard from '#lib/components/ReleaseCard.svelte';
+	import SectionDivider from '#lib/components/SectionDivider.svelte';
+	import Header from '#lib/components/Header.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import Sigil from '#lib/components/Sigil.svelte';
+	import { reveal } from '#lib/actions/reveal.ts';
+	import { scramble } from '#lib/actions/scramble.ts';
 
 	interface Props {
 		data: PageData;

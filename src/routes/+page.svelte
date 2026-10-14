@@ -1,15 +1,15 @@
 <script lang="ts">
 	import type { PageData } from './$types';
-	import GlitchHero from '$lib/components/GlitchHero.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import PerformanceList from '$lib/components/PerformanceList.svelte';
-	import AlbumInfo from '$lib/components/AlbumInfo.svelte';
-	import ContactCard from '$lib/components/ContactCard.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import SectionDivider from '$lib/components/SectionDivider.svelte';
-	import SacredField from '$lib/components/SacredField.svelte';
-	import { reveal } from '$lib/actions/reveal';
-	import { scramble } from '$lib/actions/scramble';
+	import GlitchHero from '#lib/components/GlitchHero.svelte';
+	import Header from '#lib/components/Header.svelte';
+	import PerformanceList from '#lib/components/PerformanceList.svelte';
+	import AlbumInfo from '#lib/components/AlbumInfo.svelte';
+	import ContactCard from '#lib/components/ContactCard.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import SectionDivider from '#lib/components/SectionDivider.svelte';
+	import SacredField from '#lib/components/SacredField.svelte';
+	import { reveal } from '#lib/actions/reveal.ts';
+	import { scramble } from '#lib/actions/scramble.ts';
 
 	interface Props {
 		data: PageData;

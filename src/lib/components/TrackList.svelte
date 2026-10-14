@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { DirectusTrack } from '$lib/types/release';
-	import { reveal } from '$lib/actions/reveal';
+	import type { DirectusTrack } from '#lib/types/release.ts';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import Sigil from './Sigil.svelte';
 
 	interface Props {

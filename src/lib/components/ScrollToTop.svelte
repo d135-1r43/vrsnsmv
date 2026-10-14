@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { magnetic } from '$lib/actions/magnetic';
+	import { magnetic } from '#lib/actions/magnetic.ts';
 	import Sigil from './Sigil.svelte';
 
 	const RADIUS = 26;

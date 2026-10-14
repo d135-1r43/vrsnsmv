@@ -1,4 +1,4 @@
-import type { DirectusTrack } from '$lib/types/release';
+import type { DirectusTrack } from '#lib/types/release.ts';
 
 /**
  * Format release date from ISO 8601 to full format (German)

@@ -1,4 +1,4 @@
-import { prefersReducedMotion } from '$lib/utils/motion';
+import { prefersReducedMotion } from '#lib/utils/motion.ts';
 
 interface RevealOptions {
 	/** Stagger in milliseconds, forwarded to the CSS animation delay. */

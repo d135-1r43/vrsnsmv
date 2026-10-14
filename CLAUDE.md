@@ -10,7 +10,7 @@ This is the VRS:NSMV website (Sacred and Black Neo-Classical Piano project) buil
 
 A modern SvelteKit application using:
 - **Svelte 5** (latest) with new runes syntax (`$state`, `$props`, `$bindable`)
-- **SvelteKit 2.49.2** with Node adapter (`@sveltejs/adapter-node`)
+- **SvelteKit 3** with Node adapter (`@sveltejs/adapter-node`)
 - **TypeScript** for type safety
 - **Tailwind CSS v4** via `@tailwindcss/vite` plugin
 - **Vite 7** as the build tool
@@ -21,8 +21,7 @@ A modern SvelteKit application using:
 - `src/routes/+layout.svelte` - Root layout with ScrollToTop component
 - `src/routes/layout.css` - Tailwind v4 theme with custom colors and fonts
 - `src/app.html` - HTML template with SEO meta tags and Adobe Typekit
-- `svelte.config.js` - SvelteKit configuration with Node adapter
-- `vite.config.ts` - Vite config with Tailwind v4 integration
+- `vite.config.ts` - Vite config; SvelteKit options (Node adapter, preprocess) are passed to the `sveltekit()` plugin
 
 **Component Structure:**
 - `src/lib/components/Header.svelte` - Navigation header with scroll-based state switching
