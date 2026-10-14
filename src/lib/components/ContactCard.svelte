@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { reveal } from '$lib/actions/reveal';
-	import { spotlight } from '$lib/actions/spotlight';
+	import { reveal } from '#lib/actions/reveal.ts';
+	import { spotlight } from '#lib/actions/spotlight.ts';
 	import Sigil from './Sigil.svelte';
 </script>
 

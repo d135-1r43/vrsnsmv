@@ -1,16 +1,16 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import type { PageData } from './$types';
-	import { getDirectusAssetUrl, getBandcampEmbedUrl } from '$lib/utils/directus';
-	import { formatReleaseDate } from '$lib/utils/releaseFormatters';
-	import StreamingLinks from '$lib/components/StreamingLinks.svelte';
-	import TrackList from '$lib/components/TrackList.svelte';
-	import SectionDivider from '$lib/components/SectionDivider.svelte';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import { reveal } from '$lib/actions/reveal';
-	import { scramble } from '$lib/actions/scramble';
-	import { tilt } from '$lib/actions/tilt';
+	import { getDirectusAssetUrl, getBandcampEmbedUrl } from '#lib/utils/directus.ts';
+	import { formatReleaseDate } from '#lib/utils/releaseFormatters.ts';
+	import StreamingLinks from '#lib/components/StreamingLinks.svelte';
+	import TrackList from '#lib/components/TrackList.svelte';
+	import SectionDivider from '#lib/components/SectionDivider.svelte';
+	import Header from '#lib/components/Header.svelte';
+	import Footer from '#lib/components/Footer.svelte';
+	import { reveal } from '#lib/actions/reveal.ts';
+	import { scramble } from '#lib/actions/scramble.ts';
+	import { tilt } from '#lib/actions/tilt.ts';
 
 	interface Props {
 		data: PageData;

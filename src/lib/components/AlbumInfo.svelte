@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
-	import type { DirectusRelease } from '$lib/types/release';
-	import { getDirectusAssetUrl, getBandcampEmbedUrl } from '$lib/utils/directus';
-	import { formatReleaseDate } from '$lib/utils/releaseFormatters';
-	import { reveal } from '$lib/actions/reveal';
-	import { tilt } from '$lib/actions/tilt';
+	import { browser } from '$app/env';
+	import type { DirectusRelease } from '#lib/types/release.ts';
+	import { getDirectusAssetUrl, getBandcampEmbedUrl } from '#lib/utils/directus.ts';
+	import { formatReleaseDate } from '#lib/utils/releaseFormatters.ts';
+	import { reveal } from '#lib/actions/reveal.ts';
+	import { tilt } from '#lib/actions/tilt.ts';
 	import StreamingLinks from './StreamingLinks.svelte';
 
 	interface Props {

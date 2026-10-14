@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { isCoarsePointer, prefersReducedMotion, seededRandom } from '$lib/utils/motion';
+	import { isCoarsePointer, prefersReducedMotion, seededRandom } from '#lib/utils/motion.ts';
 
 	// Seeded so the server and the client agree on where every ember sits.
 	const random = seededRandom(0x5eed);

@@ -1,4 +1,4 @@
-import { isCoarsePointer, prefersReducedMotion } from '$lib/utils/motion';
+import { isCoarsePointer, prefersReducedMotion } from '#lib/utils/motion.ts';
 
 interface TiltOptions {
 	/** Maximum rotation on each axis, in degrees. */

@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import type { DirectusReleasesResponse } from '$lib/types/release';
-import { DIRECTUS_CONFIG } from '$lib/utils/directus';
+import type { DirectusReleasesResponse } from '#lib/types/release.ts';
+import { DIRECTUS_CONFIG } from '#lib/utils/directus.ts';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {

@@ -1,7 +1,7 @@
 <script lang="ts">
-	import type { DirectusEvent } from '$lib/types/event';
-	import { formatEventDate } from '$lib/utils/formatters';
-	import { reveal } from '$lib/actions/reveal';
+	import type { DirectusEvent } from '#lib/types/event.ts';
+	import { formatEventDate } from '#lib/utils/formatters.ts';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import Sigil from './Sigil.svelte';
 
 	interface Props {

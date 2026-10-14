@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { browser } from '$app/environment';
-	import { useMobileDetect } from '$lib/composables/use-mobile-detect.svelte';
-	import { buildYouTubeEmbedUrl, getYouTubeWatchUrl } from '$lib/utils/youtube';
+	import { browser } from '$app/env';
+	import { useMobileDetect } from '#lib/composables/use-mobile-detect.svelte.ts';
+	import { buildYouTubeEmbedUrl, getYouTubeWatchUrl } from '#lib/utils/youtube.ts';
 	import { GLITCH_CONFIG } from './glitch-hero.config';
-	import { magnetic } from '$lib/actions/magnetic';
+	import { magnetic } from '#lib/actions/magnetic.ts';
 	import Sigil from './Sigil.svelte';
 
 	interface Props {

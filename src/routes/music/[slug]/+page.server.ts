@@ -1,6 +1,6 @@
 import type { PageServerLoad } from './$types';
-import type { DirectusReleaseResponse } from '$lib/types/release';
-import { DIRECTUS_CONFIG } from '$lib/utils/directus';
+import type { DirectusReleaseResponse } from '#lib/types/release.ts';
+import { DIRECTUS_CONFIG } from '#lib/utils/directus.ts';
 import { error } from '@sveltejs/kit';
 
 export const load: PageServerLoad = async ({ params, fetch }) => {

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { magnetic } from '$lib/actions/magnetic';
-	import { reveal } from '$lib/actions/reveal';
+	import { magnetic } from '#lib/actions/magnetic.ts';
+	import { reveal } from '#lib/actions/reveal.ts';
 	import Sigil from './Sigil.svelte';
 </script>
 

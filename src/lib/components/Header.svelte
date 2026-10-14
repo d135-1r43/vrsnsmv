@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import MobileMenu from './MobileMenu.svelte';
-	import { scramble } from '$lib/actions/scramble';
+	import { scramble } from '#lib/actions/scramble.ts';
 
 	const NAV_ITEMS = [
 		{ href: '/', label: 'Home' },

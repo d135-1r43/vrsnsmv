@@ -1,4 +1,4 @@
-import { isCoarsePointer, prefersReducedMotion } from '$lib/utils/motion';
+import { isCoarsePointer, prefersReducedMotion } from '#lib/utils/motion.ts';
 
 /**
  * Tracks the pointer inside an element as `--spot-x` / `--spot-y` percentages

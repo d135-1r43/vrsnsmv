@@ -1,7 +1,7 @@
 import type { PageServerLoad } from './$types';
-import type { DirectusEvent, DirectusEventsResponse } from '$lib/types/event';
-import type { DirectusReleasesResponse, DirectusRelease } from '$lib/types/release';
-import { DIRECTUS_CONFIG } from '$lib/utils/directus';
+import type { DirectusEvent, DirectusEventsResponse } from '#lib/types/event.ts';
+import type { DirectusReleasesResponse, DirectusRelease } from '#lib/types/release.ts';
+import { DIRECTUS_CONFIG } from '#lib/utils/directus.ts';
 
 export const load: PageServerLoad = async ({ fetch }) => {
 	try {

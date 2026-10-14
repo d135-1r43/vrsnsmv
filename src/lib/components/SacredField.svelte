@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { SIGIL_PATH, SIGIL_VIEWBOX } from './sigil-path';
-	import { isCoarsePointer, prefersReducedMotion, seededRandom } from '$lib/utils/motion';
+	import { isCoarsePointer, prefersReducedMotion, seededRandom } from '#lib/utils/motion.ts';
 
 	/**
 	 * A generated backdrop: a rose window turning slowly in the dark, with dust
