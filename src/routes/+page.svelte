@@ -134,16 +134,12 @@
 						class="veil mb-6 text-2xl leading-8 font-light text-white"
 						use:reveal={{ delay: 120 }}
 					>
-						An ethereal blend evoking the dark and sacred rituals of the past – the debut solo from
-						Nacht will stir your soul.
+						Dungeon synth, neoclassical piano, and the cold of black metal.
 					</h4>
 					<p class="veil mb-8 w-[93%] leading-loose text-white/90" use:reveal={{ delay: 220 }}>
-						VRS:NSMV – the first solo from Nacht, pianist, and composer of Opus Iræ – will deliver
-						you elegant, soulful ambience unlike anything else. This fusion calls upon the dark
-						influences of Post Black Metal and minimalist classical piano to create the ultimate
-						ethereal work. Evoking sacred rituals and the otherworldly. VRS:NSMV will stir your
-						soul. This is a sacrament that lovers of the detached can feel in their bones as an
-						ambient home.
+						VRS:NSMV is the solo work of Nacht, pianist and composer of Opus Iræ. Three realms meet
+						here – dungeon synth, neoclassical, black metal – in sparse piano figures left to decay
+						into the dark they came from. Sacred in form, black in temper. It keeps its own counsel.
 					</p>
 					<ul class="veil mb-4 flex list-none gap-4 p-0" use:reveal={{ delay: 320 }}>
 						<li>
