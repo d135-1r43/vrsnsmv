@@ -9,6 +9,11 @@ updates:
     # fail on freshly-published versions.
     cooldown:
       default-days: 5
+    # TypeScript 7 (native port) drops the JS API that @sveltejs/kit and
+    # svelte-check rely on; both still peer-depend on typescript ^6.
+    ignore:
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
     groups:
       npm-dependencies:
         patterns:
